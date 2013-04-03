@@ -1,4 +1,4 @@
-#include <stdio.h>
+ï»¿#include <stdio.h>
 #include <math.h>
 #include <QDebug>
 #include <QFile>
@@ -9,9 +9,9 @@
 #include "CellularException.h"
 #include "Grid.h"
 
-//! Diese Klasse speichert ein Gitter mit den zugehörigen Field-Funktionen.
+//! Diese Klasse speichert ein Gitter mit den zugehÃ¶rigen Field-Funktionen.
 //!
-//! Die Speicherung erfolgt in einem Feld der Größe dimx*dimy. Die Speicherung
+//! Die Speicherung erfolgt in einem Feld der GrÃ¶ÃŸe dimx*dimy. Die Speicherung
 //! erfolgt Spaltenweise. Der Index einer Position ist also idx(x,y)=x*dimy+y.
 Grid::Grid(): Field(),
     max_xcells(0),
@@ -23,7 +23,6 @@ Grid::Grid(): Field(),
     border_state(0),
     aktfield(NULL),
     newfield(NULL),
-    help_field_pointer(NULL),
     maskfield(NULL),
     Field_maxy(0),
     Field_size(0),
@@ -46,7 +45,6 @@ Grid::~Grid()
     delete [] aktfield; aktfield = NULL;
     delete [] newfield; newfield = NULL;
     delete [] maskfield; maskfield = NULL;
-    help_field_pointer = NULL;
 }
 
 /*!
@@ -75,9 +73,9 @@ void Grid::InitField (int x,int y)
     Field_maxy = y;
     Field_size = x*y;
 
-    aktfield = new CellType[Field_size];
-    newfield = new CellType[Field_size];
-    maskfield = new MaskType[Field_size];
+    aktfield = new qint32[Field_size];
+    newfield = new qint32[Field_size];
+    maskfield = new qint32[Field_size];
 
     qDebug() << "Adresse aktfield " << aktfield;
     qDebug() << "Adresse newfield " << newfield;
@@ -88,14 +86,14 @@ void Grid::InitField (int x,int y)
 
 void Grid::finishInit()
 {
-    QMutableMapIterator<int, QVector<PointType> > it(neighborPoints);
+    QMutableMapIterator<int, QVector<QPoint> > it(neighborPoints);
     while (it.hasNext())
     {
         it.next();
         it.value().squeeze();
     }
 
-    QMutableMapIterator<int, QVector<PointType> > it2(mirrorNeighborPoints);
+    QMutableMapIterator<int, QVector<QPoint> > it2(mirrorNeighborPoints);
     while (it2.hasNext())
     {
         it2.next();
@@ -114,18 +112,18 @@ int Grid::getNeighborSize() const
     return neighborPoints[nhIndex].size();
 }
 
-//! Hinzufügen eines Nachbarschaftsindex. Diese sind relativ zur
-//! späteren Zelle und sind in der Reihe ihres Hinzufügens nummeriert
+//! HinzufÃ¼gen eines Nachbarschaftsindex. Diese sind relativ zur
+//! spÃ¤teren Zelle und sind in der Reihe ihres HinzufÃ¼gens nummeriert
 //! von 1 bis n. Mit Index 0 wird die aktuelle Zelle adressiert.
-//! Mit dem gespiegelten Punkt kann die zugehörige Zelle ermittelt werden,
+//! Mit dem gespiegelten Punkt kann die zugehÃ¶rige Zelle ermittelt werden,
 //! die diesen Puntk als Nachbarn hat.
 void Grid::addNeighbor (int a, int b, int n)
 {
-    PointType p, mp;
-    p.x = a;
-    p.y = b;
-    mp.x = -a;
-    mp.y = -b;
+    QPoint p, mp;
+    p.setX(a);
+    p.setY(b);
+    mp.setX(-a);
+    mp.setY(-b);
 
     qDebug() << "add neighbor point[" << n << "] (" << a << "," << b << ")";
     neighborPoints[n].append(p);
@@ -161,7 +159,7 @@ void Grid::GetActiveCell(int &x, int &y)
 //! Turingmaschinen bewegen einfach nur die aktive Zelle.
 void Grid::MoveActiveCell(int xd, int yd)
 {
-    PointType pn = {xd,yd};
+    QPoint pn(xd,yd);
     int xn, yn;
 
     getFieldIndex(currentCell.x, currentCell.y, pn, &xn, &yn);
@@ -171,8 +169,8 @@ void Grid::MoveActiveCell(int xd, int yd)
 
 void Grid::MoveActiveCell(int nIdx)
 {
-    MoveActiveCell(neighborPoints[nhIndex][nIdx].x,
-                   neighborPoints[nhIndex][nIdx].y);
+    MoveActiveCell(neighborPoints[nhIndex][nIdx].x(),
+                   neighborPoints[nhIndex][nIdx].y());
 }
 
 void Grid::SetFirstCell (iterationType aType, qint32 n)
@@ -195,7 +193,7 @@ void Grid::SetFirstCell (iterationType aType, qint32 n)
         currentCell.y = n;
         currentCell.lx = n;
         currentCell.ly = n;
-        currentCell.o = n; // merken für die nächste Zeile
+        currentCell.o = n; // merken fÃ¼r die nÃ¤chste Zeile
         nhIndex = 0;
     }
 
@@ -221,7 +219,7 @@ void Grid::NextCell ()
     {
         if (3 == nhIndex)
         {
-            // Block weiterrücken, l?-Werte verwenden
+            // Block weiterrÃ¼cken, l?-Werte verwenden
             nhIndex = 0;
 
             if (currentCell.lx + 2 <= max_xcells)
@@ -278,40 +276,40 @@ void Grid::NextCell ()
     }
 }
 
-//! Funktion gibt true zurück, wenn die letzte Zelle erreicht ist.
+//! Funktion gibt true zurÃ¼ck, wenn die letzte Zelle erreicht ist.
 bool Grid::LastCell () const
 {
     return (fieldlc || (currentIndex == Field_size));
 }
 
-CellType Grid::GetCellState () const
+qint32 Grid::GetCellState () const
 {
     return *(aktfield+(currentCell.x*Field_maxy+currentCell.y));
 }
 
-void Grid::SetCellState (CellType st)
+void Grid::SetCellState (qint32 st)
 {
     put_field (currentCell.x, currentCell.y, st);
 }
 
-void Grid::SetNewState(CellType st)
+void Grid::SetNewState(qint32 st)
 {
     put_newfield (currentCell.x, currentCell.y, st);
 }
 
-void Grid::MarkCellMask (MaskType mt)
+void Grid::MarkCellMask (qint32 mt)
 {
     mark_mask (currentCell.x, currentCell.y, mt);
 }
 
-MaskType Grid::GetCellMask () const
+qint32 Grid::GetCellMask () const
 {
     return *(maskfield+(currentCell.x*Field_maxy+currentCell.y));
 }
 
 void Grid::ClearMask ()
 {
-    memset (maskfield,0,Field_size*sizeof(MaskType));
+    memset (maskfield,0,Field_size*sizeof(qint32));
 }
 
 void Grid::CheckObservers () const
@@ -322,29 +320,29 @@ void Grid::CheckObservers () const
 void Grid::setBorder(int bf, int bs)
 {
     borderform = bf;
-    border_state = static_cast<CellType>(bs);
+    border_state = bs;
 }
 
 void Grid::clearField ()
 {
     qDebug() << "init grid fiels with empty cells";
 
-    memset (aktfield,0,Field_size*sizeof(CellType));
-    memset (newfield,0,Field_size*sizeof(CellType));
-    memset (maskfield,2,Field_size*sizeof(MaskType));
+    memset (aktfield,0,Field_size*sizeof(qint32));
+    memset (newfield,0,Field_size*sizeof(qint32));
+    memset (maskfield,2,Field_size*sizeof(qint32));
 }
 
 void Grid::updateField ()
 {
-    help_field_pointer = aktfield;
+    qint32 *help_field_pointer = aktfield;
     aktfield = newfield;
     newfield = help_field_pointer;
-    memset (newfield,0,Field_size*sizeof(CellType));
+    memset (newfield,0,Field_size*sizeof(qint32));
 }
 
 //! Diese Methode bestimmt den Wert einer Zelle mit dem Index (x,y).
 //! Dabei wird insbesondere die eingestellte Randbehandlung beachtet.
-CellType Grid::getFieldType (int x,int y) const
+qint32 Grid::getFieldType (int x,int y) const
 {
     signed int hx,hy;
 
@@ -384,14 +382,14 @@ CellType Grid::getFieldType (int x,int y) const
 //! Bestimmen einer neuen Feldposition. Dabei wird von Position (x,y)
 //! ausgegangen und die Differenz aus (p.x,p.y) verwendet um den neuen
 //! Punkt (xn,yn) zu bestimmen.
-CellType Grid::getFieldIndex (int x, int y,
-                              const PointType &p,
+qint32 Grid::getFieldIndex (int x, int y,
+                              const QPoint &p,
                               int *xn, int *yn)
 {
     signed int hx,hy;
 
-    hx = x + p.x;
-    hy = y + p.y;
+    hx = x + p.x();
+    hy = y + p.y();
     if (borderform == 0)
     {
         /* cyclic coupled */
@@ -415,29 +413,29 @@ CellType Grid::getFieldIndex (int x, int y,
     }
 }
 
-void Grid::put_field (int x,int y,CellType st)
+void Grid::put_field (int x,int y,qint32 st)
 {
     *(aktfield+(x*Field_maxy+y)) = st;
 }
 
-void Grid::put_newfield (int x,int y,CellType st)
+void Grid::put_newfield (int x,int y,qint32 st)
 {
     *(newfield+(x*Field_maxy+y)) = st;
 }
 
-void Grid::mark_mask (int x,int y,MaskType mt)
+void Grid::mark_mask (int x,int y,qint32 mt)
 {
     *(maskfield+(x*Field_maxy+y)) = mt;
 }
 
-MaskType Grid::get_mask (int x,int y) const
+qint32 Grid::get_mask (int x,int y) const
 {
     return *(maskfield+(x*Field_maxy+y));
 }
 
 
 // !!! abwarten, ob die Funktion noch ben"otigt wird
-void Grid::fill_field(CellType st)
+void Grid::fill_field(qint32 st)
 {
     int i;
 
@@ -500,11 +498,11 @@ void Grid::loadField (QString aFileName)
         QDataStream in(&data);
         in >> x >> y;
         InitField(x,y);
-        memset (maskfield,CELL_CHANGED,Field_size*sizeof(MaskType));
+        memset (maskfield,CELL_CHANGED,Field_size*sizeof(qint32));
         for (int i=0; i < Field_size; ++i)
         {
             in >> b;
-            aktfield[i] = static_cast<CellType>(b);
+            aktfield[i] = b;
             maskfield[i] = CELL_CHANGED;
         }
         data.close();
@@ -524,7 +522,7 @@ void Grid::loadAsciiField(QString aFileName)
         QTextStream in(&data);
         line = in.readLine();
 
-        memset (maskfield,CELL_CHANGED,Field_size*sizeof(MaskType));
+        memset (maskfield,CELL_CHANGED,Field_size*sizeof(qint32));
         while (!line.isNull())
         {
             l = line.split(" ", QString::SkipEmptyParts);
@@ -537,12 +535,12 @@ void Grid::loadAsciiField(QString aFileName)
                 {
                     if (y < max_ycellspl1 && x < max_xcellspl1)
                     {
-                        put_field(x,y,static_cast<CellType>(c));
+                        put_field(x,y,c);
                         mark_mask(x,y,CELL_CHANGED);
                     }
                     else
                     {
-                        qDebug() << "Punkt liegt außerhalb des Feldes";
+                        qDebug() << "Punkt liegt auÃŸerhalb des Feldes";
                     }
                 }
             }
@@ -590,7 +588,7 @@ void Grid::save_tex_file ()
     "{$\\ominus$}", "{$\\otimes$}", "{$\\oslash$}","{$\\oplus$}",
     "{$\\odot$}","{$\\diamond$}"};
   int i,j,k,max_marker=10;
-  CellType st;
+  qint32 st;
   FILE *fp;
   char name[200];
 
@@ -636,9 +634,9 @@ void Grid::save_tex_file ()
 //! Methode bekommt man den Zustand des Nachbarn mit dem
 //! Index aIndex der aktuellen Zelle.
 //!
-//! Unabhängig von der tatsächlichen Nachbarschaft ist aIndex=0
+//! UnabhÃ¤ngig von der tatsÃ¤chlichen Nachbarschaft ist aIndex=0
 //! immer die aktuelle Zelle.
-CellType Grid::getNeighborState(int aIndex)
+qint32 Grid::getNeighborState(int aIndex)
 {
     if (aIndex == 0)
     {
@@ -647,27 +645,27 @@ CellType Grid::getNeighborState(int aIndex)
     else if (aIndex > 0 && aIndex <= neighborPoints[nhIndex].size())
     {
         aIndex--;
-        return getFieldType(currentCell.x+neighborPoints[nhIndex][aIndex].x,
-                            currentCell.y+neighborPoints[nhIndex][aIndex].y);
+        return getFieldType(currentCell.x+neighborPoints[nhIndex][aIndex].x(),
+                            currentCell.y+neighborPoints[nhIndex][aIndex].y());
     }
 
     throw CellularException(__FILE__,__LINE__,
                             QString("Neighbour index %1 out of bounds 0...%2")
                             .arg(aIndex).arg(neighborPoints[nhIndex].size()) );
 
-    return static_cast<CellType>(0);
+    return 0;
 }
 
-//! Berechnen der Nachbarschaftsumme. Die Liste enthält für jeden
-//! Zustandswert die Anzahl dieser Zustände in der Nachbarschaft.
+//! Berechnen der Nachbarschaftsumme. Die Liste enthÃ¤lt fÃ¼r jeden
+//! Zustandswert die Anzahl dieser ZustÃ¤nde in der Nachbarschaft.
 //! Ist der Parameter current true, wird eine vorhandene Liste wieder
 //! verwendet.
-//! \todo Anzahl der möglichen Zustände darf nicht konstant sein.
+//! \todo Anzahl der mÃ¶glichen ZustÃ¤nde darf nicht konstant sein.
 QVector<int>& Grid::getNeighborSum (bool useLast) const
 {
     static QVector<int> nsum(256);
     static bool recomputeSum = true;
-    CellType st;
+    qint32 st;
 
     if (useLast)
     {
@@ -680,9 +678,9 @@ QVector<int>& Grid::getNeighborSum (bool useLast) const
                 nsum[st]++;
             }
 
-            foreach (PointType p, neighborPoints[nhIndex])
+            foreach (QPoint p, neighborPoints[nhIndex])
             {
-                st = getFieldType(currentCell.x+p.x, currentCell.y+p.y);
+                st = getFieldType(currentCell.x+p.x(), currentCell.y+p.y());
                 nsum[st]++;
             }
 
@@ -698,27 +696,28 @@ QVector<int>& Grid::getNeighborSum (bool useLast) const
     return nsum;
 }
 
-CellType Grid::GetCellState (int x, int y) const
+qint32 Grid::GetCellState (int x, int y) const
 {
     return getFieldType (x,y);
 }
 
-void Grid::SetCellState (int x, int y, CellType st)
+void Grid::SetCellState (int x, int y, qint32 st)
 {
     put_field (x,y,st);
     currentCell.x = x; currentCell.y = y;
 }
 
-void Grid::SetNewState (int x, int y, CellType st)
+void Grid::SetNewState (int x, int y, qint32 st)
 {
     put_newfield (x,y,st);
 }
 
-void Grid::MarkCellMask (int x, int y, MaskType mt)
+void Grid::MarkCellMask (int x, int y, qint32 mt)
 {
     mark_mask (x,y,mt);
 }
-MaskType Grid::GetCellMask (int x, int y) const
+
+qint32 Grid::GetCellMask (int x, int y) const
 {
     return get_mask (x,y);
 }

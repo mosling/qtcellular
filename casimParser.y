@@ -315,7 +315,7 @@ int parseAutomataFile (QString name, AutomataFactory *f)
 
 	factory = f;
 	qFunc = new CQueue();
-	casimScannerin = fopen(name.toAscii(),"r");
+	casimScannerin = fopen(name.toLatin1(),"r");
 	if (casimScannerin != NULL)
 	{
             casimParserparse ();

@@ -9,7 +9,7 @@ void FieldAlgorithms::Randomize(Field *field, StateList *states)
 {
 	int s=0, r=0, i=0;
 	int max_states = states->size();
-	CellType c;
+    qint32 c;
 
 	QList<int> lhList;
 	QList<StateListNode*> sl = states->getList();
@@ -25,7 +25,7 @@ void FieldAlgorithms::Randomize(Field *field, StateList *states)
 	{
 		if (s==0)
 		{
-			c = (CellType) my_random (max_states);
+            c = my_random (max_states);
 		}
 		else
 		{
@@ -43,7 +43,7 @@ void FieldAlgorithms::Randomize(Field *field, StateList *states)
 		}
 
 		field->SetCellState(c);
-		field->MarkCellMask(CELL_CHANGED);
+        field->MarkCellMask(Field::CELL_CHANGED);
 		field->NextCell();
 	}
 }

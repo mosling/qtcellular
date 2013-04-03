@@ -1,8 +1,8 @@
-/*!
-Abstrakte Klasse für Modelle, diese stellen im wesentlichen eine
-Funktion bereit, für das Berechnen der nächsten Konfiguration.
-Darüber hinaus werden Funktionen zur Überwachung von
-Veränderungen als inline-Funktionen implementiert. So rufen die
+ï»¿/*!
+Abstrakte Klasse fÃ¼r Modelle, diese stellen im wesentlichen eine
+Funktion bereit, fÃ¼r das Berechnen der nÃ¤chsten Konfiguration.
+DarÃ¼ber hinaus werden Funktionen zur Ãœberwachung von
+VerÃ¤nderungen als inline-Funktionen implementiert. So rufen die
 entsprechenden Funktionen des Feldes diese Observer auf.
 */
 
@@ -14,7 +14,7 @@ entsprechenden Funktionen des Feldes diese Observer auf.
 #include "RuleSet.h"
 #include "StateList.h"
 #include "Field.h"
-#include "global.h"
+//#include "global.h"
 
 class Automata
 {

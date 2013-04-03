@@ -1,4 +1,4 @@
-#ifndef CA_GRID_H
+﻿#ifndef CA_GRID_H
 #define CA_GRID_H
 
 #include <QPoint>
@@ -6,113 +6,113 @@
 #include "Field.h"
 
 /*!
-Klasse f�r die Speicherung eines zweidimensionalen Feldes.
+Klasse für die Speicherung eines zweidimensionalen Feldes.
 */
 class Grid : public Field
 {
 public:
-	Grid();
-	virtual ~Grid();
-	// allgemeine Funktionen
-	virtual int FieldType () const { return 1;}
-	virtual QString GetFieldInfo () const { return "GridField";}
+    Grid();
+    virtual ~Grid();
+    // allgemeine Funktionen
+    virtual qint32 FieldType () const { return 1;}
+    virtual QString GetFieldInfo () const { return "GridField";}
 
-	// Iterator-Funktionen
-	virtual void SetFirstCell (iterationType aType, qint32);
-	virtual void NextCell ();
-	virtual bool LastCell () const;
+    // Iterator-Funktionen
+    virtual void SetFirstCell (iterationType aType, qint32);
+    virtual void NextCell ();
+    virtual bool LastCell () const;
 
-	// Funktionen mit der aktiven Zelle
-	virtual void     SetActiveCell (int x, int y);
-	virtual void     GetActiveCell(int &x, int &y);
-	virtual void     MoveActiveCell(int xd, int yd);
-	virtual void     MoveActiveCell(int nIdx);
-	virtual CellType GetCellState () const;
-	virtual void     SetCellState (CellType st);
-	virtual void     SetNewState (CellType st);
-	virtual void     MarkCellMask (MaskType);
-	virtual MaskType GetCellMask () const;
-	virtual QVector<int>& getNeighborSum(bool useLast) const;
-	virtual CellType getNeighborState(int aIndex);
+    // Funktionen mit der aktiven Zelle
+    virtual void     SetActiveCell (qint32 x, qint32 y);
+    virtual void     GetActiveCell(qint32 &x, qint32 &y);
+    virtual void     MoveActiveCell(qint32 xd, qint32 yd);
+    virtual void     MoveActiveCell(qint32 nIdx);
+    virtual qint32 GetCellState () const;
+    virtual void     SetCellState (qint32 st);
+    virtual void     SetNewState (qint32 st);
+    virtual void     MarkCellMask (qint32);
+    virtual qint32 GetCellMask () const;
+    virtual QVector<qint32>& getNeighborSum(bool useLast) const;
+    virtual qint32 getNeighborState(qint32 aIndex);
 
-	// Funktionen f"ur das gesamte Feld
-	virtual void InitField (int x, int y);
-	virtual int  InitField (QString aFileName);
-	virtual void loadField(QString aFileName);
-	virtual void loadAsciiField(QString aFileName);
-	virtual void saveField (QString aFileNname);
+    // Funktionen f"ur das gesamte Feld
+    virtual void InitField (qint32 x, qint32 y);
+    virtual qint32  InitField (QString aFileName);
+    virtual void loadField(QString aFileName);
+    virtual void loadAsciiField(QString aFileName);
+    virtual void saveField (QString aFileNname);
 
-	virtual void clearField ();
-	virtual void updateField ();
-	virtual void ClearMask ();
-	virtual void CheckObservers () const;
-	virtual void finishInit();
+    virtual void clearField ();
+    virtual void updateField ();
+    virtual void ClearMask ();
+    virtual void CheckObservers () const;
+    virtual void finishInit();
 
-	virtual int  getNeighborSize() const;
-	virtual void addNeighbor (int a, int b, int n);
-	virtual void setAddingCell(bool aWithCell);
+    virtual qint32  getNeighborSize() const;
+    virtual void addNeighbor (const qint32 a, const qint32 b, qint32 n);
+    virtual void setAddingCell(bool aWithCell);
 
-	// direkte Kommunikation mit einer Zelle
-	virtual CellType GetCellState (int x, int y) const;
-	virtual void SetCellState (int x, int y, CellType st);
-	virtual void SetNewState (int x, int y, CellType st);
-	virtual void MarkCellMask (int x, int y, MaskType mt);
-	virtual MaskType GetCellMask (int x, int y) const;
+    // direkte Kommunikation mit einer Zelle
+    virtual qint32 GetCellState (qint32 x, qint32 y) const;
+    virtual void SetCellState (qint32 x, qint32 y, qint32 st);
+    virtual void SetNewState (qint32 x, qint32 y, qint32 st);
+    virtual void MarkCellMask (qint32 x, qint32 y, qint32 mt);
+    virtual qint32 GetCellMask (qint32 x, qint32 y) const;
 
-	// Grid-spezifische Funktionen
-	virtual void setBorder(int bf, int bs);
-	virtual int getXCells() const { return max_xcellspl1; }
-	virtual int getYCells() const { return max_ycellspl1; }
-	virtual int getXIndex() const { return currentCell.x; }
-	virtual int getYIndex() const { return currentCell.y; }
+    // Grid-spezifische Funktionen
+    virtual void setBorder(qint32 bf, qint32 bs);
+    virtual qint32 getXCells() const { return max_xcellspl1; }
+    virtual qint32 getYCells() const { return max_ycellspl1; }
+    virtual qint32 getXIndex() const { return currentCell.x; }
+    virtual qint32 getYIndex() const { return currentCell.y; }
 
-	int getNeighborhoodIndex() const { return nhIndex; }
+    qint32 getNeighborhoodIndex() const { return nhIndex; }
 
 private:
-	int max_xcells;
-	int max_ycells;
-	int max_xcellspl1;
-	int max_ycellspl1;
-	int stepx;
-	int stepy;
-	int border_state;
-	CellType *aktfield;
-	CellType *newfield;
-	CellType *help_field_pointer;
-	MaskType *maskfield;
-	int Field_maxy;
-	int Field_size;
-	int grid;
-	int borderform;
-	bool fieldlc;
-	QMap< int, QVector<PointType> > neighborPoints;
-	QMap< int, QVector<PointType> > mirrorNeighborPoints;
-	bool fieldValid;
-	bool addCell;
-	int currentIndex;
-        struct { int x,y,lx,ly,o; } currentCell;
-	iterationType whichCells;
-	int nhIndex;
+    qint32 max_xcells;
+    qint32 max_ycells;
+    qint32 max_xcellspl1;
+    qint32 max_ycellspl1;
+    qint32 stepx;
+    qint32 stepy;
+    qint32 border_state;
+    qint32 *aktfield;
+    qint32 *newfield;
+    qint32 *help_field_poqint32er;
+    qint32 *maskfield;
+    qint32 Field_maxy;
+    qint32 Field_size;
+    qint32 grid;
+    qint32 borderform;
+    bool fieldlc;
+    QMap< qint32, QVector<QPoint> > neighborPoints;
+    QMap< qint32, QVector<QPoint> > mirrorNeighborPoints;
+    bool fieldValid;
+    bool addCell;
+    qint32 currentIndex;
+    struct { qint32 x,y,lx,ly,o; } currentCell;
+    iterationType whichCells;
+    qint32 nhIndex;
 
-	void clear_mask ();
+    void clear_mask ();
 
-	CellType getFieldType (int x, int y) const;
-	CellType getFieldIndex (int x, int y, const PointType &p, int *xn, int *yn);
-	void indexToCurrentCell();
-	void put_field (int x, int y, CellType st);
-	void put_newfield (int x, int y, CellType st);
-	void mark_mask (int,int,MaskType);
-	MaskType get_mask (int x, int y) const;
-	void fill_field (CellType st);
-	void simple_show_field ();
-	void check_observers () const;
-	void get_old_field ();
-	void update_field ();
-	void update_undo_field ();
-	void init_field (int x, int y);
-	void re_init_field (int x, int y);
-	void close_field ();
-	//void save_tex_file ();
+    qint32 getFieldType (qint32 x, qint32 y) const;
+    qint32 getFieldIndex (qint32 x, qint32 y, const QPoint &p, qint32 *xn, qint32 *yn);
+    void indexToCurrentCell();
+    void put_field (qint32 x, qint32 y, qint32 st);
+    void put_newfield (qint32 x, qint32 y, qint32 st);
+    void mark_mask (qint32,qint32,qint32);
+    qint32 get_mask (qint32 x, qint32 y) const;
+    void fill_field (qint32 st);
+    void simple_show_field ();
+    void check_observers () const;
+    void get_old_field ();
+    void update_field ();
+    void update_undo_field ();
+    void init_field (qint32 x, qint32 y);
+    void re_init_field (qint32 x, qint32 y);
+    void close_field ();
+    //void save_tex_file ();
 
 };
 

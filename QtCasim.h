@@ -1,7 +1,7 @@
 ﻿#ifndef QTCASIM_H
 #define QTCASIM_H
 
-#include <QtGui/QMainWindow>
+#include <QMainWindow>
 #include "ui_qtcasim.h"
 #include "AutomataFactory.h"
 #include "Automata.h"
@@ -11,7 +11,7 @@ class QtCasim : public QMainWindow
     Q_OBJECT
 
 public:
-    QtCasim(QWidget *parent = 0, Qt::WFlags flags = 0);
+    QtCasim(QWidget *parent = 0, Qt::WindowFlags flags = 0);
     ~QtCasim();
     void setVisualizationWidget(QWidget *aVis);
 	 void setAutomata(Automata *aAutomata);

@@ -1,7 +1,7 @@
 #ifndef PARAMDIALOG_H
 #define PARAMDIALOG_H
 
-#include <QtGui/QDialog>
+#include <QDialog>
 #include <QList>
 #include <QLineEdit>
 #include <QGridLayout>

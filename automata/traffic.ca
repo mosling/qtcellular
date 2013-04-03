@@ -1,0 +1,78 @@
+AUTOMATA Traffic
+-- Simulation eines Kreuzungssystems
+
+ARRAY 50,50 
+
+STATES
+	floor : white
+	B : blue -- border 
+	C : red -- Car
+	ND : lime -- north direction
+	SD : limegreen -- south direction
+	WD : olive -- west direction
+	ED : darkgreen -- east direction
+END
+NEIGHBOURS
+	Moore 1
+END
+PARAMETERS
+	Cyclic
+	Ascii "c:/development/QtCellular-build-desktop/manhatten.txt"
+END
+RULES
+	B IF CELL=B;
+	-- Bewegungen auf geraden Strassen
+		-- nach osten
+		C IF [6]=B AND [7]=B AND [4]=C AND CELL=0;
+		0 IF [7]=B AND [8]=B AND [5]=0 AND CELL=C;
+		-- nach westen
+		C IF [3]=B AND [2]=B AND [5]=C AND CELL=0;
+		0 IF [2]=B AND [1]=B AND [4]=0 AND CELL=C;
+		-- nach norden
+		C IF [8]=B AND [5]=B AND [7]=C AND CELL=0;
+		0 IF [5]=B AND [3]=B AND [2]=0 AND CELL=C;
+		-- nach sueden
+		C IF [1]=B AND [4]=B AND [2]=C AND CELL=0;
+		0 IF [4]=B AND [6]=B AND [7]=0 AND CELL=C;
+	-- in einen Kreisverkehr einfahren, 
+	-- Fahrzeuge im Kreisverkehr haben Vorfahrt
+		-- von westen
+		0 IF CELL=C AND [6]=B AND [7]=B AND [8]!=B AND [3]=0 AND [5]=0;
+		RND(4)+3 IF [6]=B AND |B|=1 AND [4]=C AND [2]=0 AND CELL=0;
+		-- von osten
+		0 IF CELL=C AND [3]=B AND [2]=B AND [1]!=B AND [6]=0 AND [4]=0;
+		RND(4)+3 IF [3]=B AND |B|=1 AND [5]=C AND [7]=0 AND CELL=0;
+		-- von norden
+		0 IF CELL=C AND [1]=B AND [4]=B AND [6]!=B AND [8]=0 AND [7]=0;
+		RND(4)+3 IF [1]=B AND |B|=1 AND [2]=C AND [5]=0 AND CELL=0;
+		-- von sueden
+		0 IF CELL=C AND [8]=B AND [5]=B AND [3]!=B AND [1]=0 AND [2]=0;
+		RND(4)+3 IF [8]=B AND |B|=1 AND [7]=C AND [4]=0 AND CELL=0;
+	-- Fahrzeuge im Kreisverkehr bewegen
+		-- bewegen im Kreisverkehr
+		-- nord-west Ecke
+		[5] IF [1]=B AND |B|=1 AND CELL=0 AND [5]!=ND;
+		0 IF [1]=B AND |B|=1 AND CELL!=WD AND [7]=0;
+		-- nord-ost Ecke
+		[7] IF [3]=B AND |B|=1 AND CELL=0 AND [7]!=ED;
+		0 IF [3]=B AND |B|=1 AND CELL!=ND AND [4]=0;
+		-- sued-ost Ecke
+		[4] IF [8]=B AND |B|=1 AND CELL=0 AND [4]!=SD;
+		0 IF [8]=B AND |B|=1 AND CELL!=ED AND [2]=0;
+		-- sued-west Ecke
+		[2] IF [6]=B AND |B|=1 AND CELL=0 AND [2]!=WD;
+		0 IF [6]=B AND |B|=1 AND CELL!=SD AND [5]=0;
+	-- Fahrzeuge verlassen den Kreisverkehr
+		-- nach norden
+		0 IF [3]=B AND |B|=1 AND  CELL=ND AND [2]=0;
+		C IF [3]=B AND [5]=B AND |B|=2 AND [7]=ND AND CELL=0;
+		-- nach osten
+		0 IF [8]=B AND |B|=1 AND CELL=ED AND [5]=0;
+		C IF [7]=B AND [8]=B AND |B|=2 AND [4]=ED AND CELL=0;
+		-- nach sueden
+		0 IF [6]=B AND |B|=1 AND CELL=SD AND [7]=0;
+		C IF [6]=B AND [4]=B AND |B|=2 AND [2]=SD AND CELL=0;
+		-- nach westen
+		0 IF [1]=B AND |B|=1 AND CELL=WD AND [4]=0;
+		C IF [1]=B AND [2]=B AND |B|=2 AND [5]=WD AND CELL=0;
+END

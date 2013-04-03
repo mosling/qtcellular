@@ -1,0 +1,20 @@
+AUTOMATA Macaroni
+
+ARRAY 100,100 STEP 2,2
+
+STATES
+	z0 : white
+	z1 : black
+	z2 : darkgray
+	z3 : gray
+	z4 : lightgray
+END
+
+NEIGHBOURS
+	Moore 2
+END
+
+RULES
+	CELL+1 IF CELL<4 AND SUM(CELL+1)>=4;
+	0 IF CELL=4 AND SUM(0)>=4;
+END

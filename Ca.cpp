@@ -1,4 +1,4 @@
-#include <QDebug>
+Ôªø#include <QDebug>
 #include <stdlib.h>
 #include <math.h>
 #include "Field.h"
@@ -67,26 +67,26 @@ void Ca::nextConfiguration ()
 }
 
 
-//! Neuen Wert f¸r die aktuelle Zelle berechnen. Die aktuelle Zelle
-//! wird durch das aktive Feld festgelegt. Wenn eine Regel f¸r die aktuelle
+//! Neuen Wert f√ºr die aktuelle Zelle berechnen. Die aktuelle Zelle
+//! wird durch das aktive Feld festgelegt. Wenn eine Regel f√ºr die aktuelle
 //! Umgebung existiert, wird der neue Zellwert bestimmt. Unterscheidet
 //! sich dieser vom bisherigen Wert wird das Maskenfeld gesetzt.
-//! Ansonsten wird der vorhandene Wert ¸bernommen.
-CellType Ca::changeCell()
+//! Ansonsten wird der vorhandene Wert √ºbernommen.
+qint32 Ca::changeCell()
 {
 	int res;
-	CellType newState;
+    qint32 newState;
 	bool rule_found = false;
 
 	rule_found = mRules->compute(this->field, res);
 
 	if (rule_found)
 	{
-		newState = static_cast<CellType>(res);
+        newState = static_cast<qint32>(res);
 
 		if (field->GetCellState() != newState)
 		{
-			field->MarkCellMask(CELL_CHANGED);
+            field->MarkCellMask(Field::CELL_CHANGED);
 			stableConfiguration = false;
 		}
 	}
@@ -98,7 +98,7 @@ CellType Ca::changeCell()
 	return newState;
 }
 
-//! Es werden alle Zellen durchlaufen und der n‰chste Zustand
+//! Es werden alle Zellen durchlaufen und der n√§chste Zustand
 //! berechnet. Der genaue Durchlauf der Zellen wird durch das
 //! Feld bestimmt. Der Automat selbst kennt den Aufbau nicht.
 void Ca::nextSolid ()
@@ -136,7 +136,7 @@ void Ca::nextPlanar ()
  rule_record *f;
  int res=0;
  int rule_found;
- CellType new_state;
+ qint32 new_state;
 
  field->SetFirstCell ();
  while (!field->LastCell ())
@@ -153,7 +153,7 @@ void Ca::nextPlanar ()
 	 {
 	  // nur normales setzen
 	  res = compute_tree(f->faction);
-	  new_state = (CellType)(res);
+      new_state = (qint32)(res);
 #ifdef DEBUG_MODE
 	  printf ("new_array.planar_...Set new state: %d\n", new_state);
 #endif
@@ -186,7 +186,7 @@ void Ca::create_lookup_table ()
  int b,i,res, lookup_pos;
  unsigned int max_counter,counter;
  rule_record *f;
- CellType new_state=0;
+ qint32 new_state=0;
  unsigned char okend;
 
  max_counter = 1;
@@ -196,8 +196,8 @@ void Ca::create_lookup_table ()
   printf (NEWA_001,max_counter);
   // we can create an lookup_table or recreate
   if (! lookup_table_exist)
-	lookup_table = (CellType *)
-	 my_alloc (max_counter*sizeof(CellType));
+    lookup_table = (qint32 *)
+     my_alloc (max_counter*sizeof(qint32));
   printf (NEWA_002, max_states+1, max_neighbors+add_cell);
   lookup_table_exist = 1;
   for (i=0;i<=max_neighbors;i++) pos_neighbors[i] = 0;
@@ -214,7 +214,7 @@ void Ca::create_lookup_table ()
 	 res = compute_tree (f->ftest);
 	 if (res != 0) {
 	  res = compute_tree(f->faction);
-	  new_state = (CellType)(res);
+      new_state = (qint32)(res);
 	  f = NULL;
 	  okend = 1;
 	 } else
@@ -243,7 +243,7 @@ void Ca::create_lookup_table ()
 }
 
 //! Als einzige Aktion wird eine Lookup-Tabelle erzeugt,
-//! wenn diese nicht zu groﬂ wird.
+//! wenn diese nicht zu gro√ü wird.
 void Ca::finishInit ()
 {
 	create_lookup_table();

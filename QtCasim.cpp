@@ -1,11 +1,11 @@
-#include <QDebug>
+﻿#include <QDebug>
 #include "QtCasim.h"
 #include "StopWatch.h"
 #include "FieldAlgorithms.h"
 #include <QFileDialog>
 #include "ParamDialog.h"
 
-QtCasim::QtCasim(QWidget *parent, Qt::WFlags flags)
+QtCasim::QtCasim(QWidget *parent, Qt::WindowFlags flags)
 	: QMainWindow(parent, flags), fieldWidgetLayout(NULL), fieldWidget(NULL),
   automata(NULL)
 {
@@ -25,7 +25,7 @@ void QtCasim::setVisualizationWidget(QWidget *aVis)
 	}
 	else
 	{
-		// altes Feld wird nicht mehr ben�tigt
+		// altes Feld wird nicht mehr benötigt
 		fieldWidgetLayout->removeWidget(fieldWidget);
 		delete fieldWidget;
 	}

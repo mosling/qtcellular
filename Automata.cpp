@@ -1,4 +1,4 @@
-#include "Automata.h"
+﻿#include "Automata.h"
 
 Automata::Automata() :
 	stableConfiguration(false),

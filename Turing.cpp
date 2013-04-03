@@ -1,4 +1,4 @@
-#include "Turing.h"
+ï»¿#include "Turing.h"
 #include <QDebug>
 
 Turing::Turing() : xpos(0), ypos(0), direction(0), state(-1)
@@ -25,13 +25,13 @@ void Turing::addRule(int st, int si, int nst, int nsi, int d)
 
 void Turing::nextConfiguration ()
 {
-	CellType sign;
+    qint32 sign;
 
 	field->ClearMask();
 
 	if (state == -1)
 	{
-		// Endzustand erreicht, da wird sich nichts dran ändern :-)
+		// Endzustand erreicht, da wird sich nichts dran Ã¤ndern :-)
 		stableConfiguration = true;
 		return;
 	}
@@ -49,7 +49,7 @@ void Turing::nextConfiguration ()
 			{
 				/* put in newfield to have an correct state-observer */
 				field->SetCellState(vRule.newSign);
-				field->MarkCellMask (CELL_CHANGED);
+                field->MarkCellMask (Field::CELL_CHANGED);
 
 				/* Select absolut or relative directions */
 				if (0 == mParameter["DIRTYPE"])
@@ -59,7 +59,7 @@ void Turing::nextConfiguration ()
 				} 
 				else
 				{
-					// relative Angabe der Richtungänderung
+					// relative Angabe der RichtungÃ¤nderung
 					int maxn = field->getNeighborSize();
 					direction = (direction + vRule.direction);
 					if (direction < 0) direction = maxn + direction;
@@ -67,7 +67,7 @@ void Turing::nextConfiguration ()
 				}
 				field->MoveActiveCell(direction);
 				field->GetActiveCell(xpos, ypos);
-				field->MarkCellMask(CELL_CHANGED);
+                field->MarkCellMask(Field::CELL_CHANGED);
 			}
 			state = vRule.newState;
 
@@ -83,7 +83,7 @@ bool Turing::isStable() const
 
 /*!
 Beim Aufruf dieser Methode werden die Werte aus den Parametern
-einmalig in die Variablen übernommen.
+einmalig in die Variablen Ã¼bernommen.
 */
 void Turing::finishInit()
 {

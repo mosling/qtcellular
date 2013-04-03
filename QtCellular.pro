@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui widgets
 
 TARGET = QtCellular
 TEMPLATE = app
@@ -68,7 +68,8 @@ HEADERS  += \
     Turing.h \
     TuringRule.h \
     ParamDialog.h \
-    NumericValidator.h
+    NumericValidator.h \
+    Field.h
 
 FORMS    += \
     qtcasim.ui \
@@ -81,7 +82,13 @@ OTHER_FILES += \
     ../QtCellular-build-desktop/traffic.ca \
     ../QtCellular-build-desktop/lab2.ca \
     ../QtCellular-build-desktop/life.xml \
-    ../QtCellular-build-desktop/gas.ca
+    ../QtCellular-build-desktop/gas.ca \
+    automata/traffic.ca \
+    automata/srdp.ca \
+    automata/macaroni.ca \
+    automata/life.ca \
+    automata/lab2.ca \
+    automata/gas.ca
 
 
 

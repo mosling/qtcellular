@@ -1,4 +1,4 @@
-#include <QtDebug>
+ï»¿#include <QtDebug>
 #include "AutomataFactory.h"
 #include "CExpression.h"
 #include "GridWidget.h"
@@ -62,7 +62,7 @@ void AutomataFactory::setSteps (int s1,int s2)
 
 
 //! Diese Methode wird nur aufgerufen, wenn es sich um ein Gitter handelt.
-//! Dabei werden eine Reihe von Aktionen durchgeführt:
+//! Dabei werden eine Reihe von Aktionen durchgefÃ¼hrt:
 //! * Anlegen des Feldobjektes
 //! * Anlegen des FeldVisualisierungsobjektes
 void AutomataFactory::setArray (int x,int y)
@@ -112,10 +112,10 @@ int AutomataFactory::setVariable(QString aName, int aValue)
 /*!
  \brief
  Mit dieser Funktion wird der Name eines Zustandes oder der Werte
- einer definierten Variablen in die Datenstruktur übernommen.
+ einer definierten Variablen in die Datenstruktur Ã¼bernommen.
 
  \param aName der gefundene Name
- \param aQueue Zeiger auf die Queue in die eingefügt werden soll
+ \param aQueue Zeiger auf die Queue in die eingefÃ¼gt werden soll
 */
 void AutomataFactory::addStateOrVariable (QString aName, CQueue *aQueue)
 {
@@ -138,11 +138,11 @@ void AutomataFactory::addStateOrVariable (QString aName, CQueue *aQueue)
 }
 
 
-//! Hinzufügen einer Funktion bestimmten Typs. Mit dem Funktions-Typ
+//! HinzufÃ¼gen einer Funktion bestimmten Typs. Mit dem Funktions-Typ
 //! wird eine neue Regel gestartet.
 //!
 //! \param aFuncType Art der Funktion, Berechnung oder Bedingung
-//! \param aQueue Die Datenstruktur, welche die Funktionszeichen enthält
+//! \param aQueue Die Datenstruktur, welche die Funktionszeichen enthÃ¤lt
 void AutomataFactory::setFunction(etRulePart aFuncType, CQueue *aQueue)
 {
 	QString vStr[5] = {"","Function","Condition","Moveto-Func1","Moveto-Func2"};
@@ -193,7 +193,7 @@ void AutomataFactory::create_states (int what,int n,char *name,int c,int l)
 	}
 }
 
-//! Hinzufügen einer von Neumann Nachbarschaft
+//! HinzufÃ¼gen einer von Neumann Nachbarschaft
 //!
 void AutomataFactory::addNeumannNeighborhood(int n)
 {
@@ -228,23 +228,27 @@ void AutomataFactory::addMooreNeighborhood(int n)
 
 void AutomataFactory::addTuringFour ()
 {
-	PointType mp[4]={{0,-1},{1,0},{0,1},{-1,0}};
+    QPoint mp[4]={QPoint(0,-1),QPoint(1,0),
+                  QPoint(0,1),QPoint(-1,0)};
 	int i;
 
 	for (i=0;i<=3;i++)
 	{
-		automataField->addNeighbor (mp[i].x,mp[i].y,0);
+        automataField->addNeighbor (mp[i].x(), mp[i].y(), 0);
 	}
 }
 
 void AutomataFactory::addTuringEight ()
 {
-	PointType mp[8]={{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1}};
+    QPoint mp[8]={QPoint(0,-1),QPoint(1,-1),
+                  QPoint(1,0),QPoint(1,1),
+                  QPoint(0,1),QPoint(-1,1),
+                  QPoint(-1,0),QPoint(-1,-1) };
 	int i;
 
 	for (i=0;i<=7;i++)
 	{
-		automataField->addNeighbor (mp[i].x,mp[i].y,0);
+        automataField->addNeighbor (mp[i].x(), mp[i].y(), 0);
 	}
 }
 
@@ -302,7 +306,7 @@ void AutomataFactory::setFieldSquare (int x,int y,int w,int c)
 	{
 		for (j=y;j<y+w;j++)
 		{
-			automataField->SetCellState(i-1,j-1,(CellType)c);
+            automataField->SetCellState(i-1,j-1,c);
 		}
 	}
 }

@@ -1,10 +1,10 @@
-#ifndef CA_H
+﻿#ifndef CA_H
 #define CA_H
 
 #include "Automata.h"
 
 
-//! Diese Klasse implementiert einen zellul�ren Automaten.
+//! Diese Klasse implementiert einen zellulären Automaten.
 class Ca : public Automata
 {
 public:
@@ -15,7 +15,7 @@ public:
 	virtual void finishInit ();
 
 private:
-	CellType changeCell();
+    qint32 changeCell();
 
 	void nextSolid ();
 	void nextMargolus (qint32 offset);
@@ -24,7 +24,7 @@ private:
 	void nextPlanar ();
 
 	int lookup_table_exist;
-	CellType *lookup_table;
+    qint32 *lookup_table;
 	void create_lookup_table ();
 };
 #endif
