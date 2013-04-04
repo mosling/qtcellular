@@ -1,0 +1,42 @@
+<xml version="1.0">
+
+<automata>
+	<category type="CA">
+		<name>Life</name>
+		<descr>Der bekannteste zeluläre Automat.</descr>
+	</category>
+	<field>
+		<grid width="50" height="50" />
+	</field>
+	<statelist>
+		<state name="death">
+			<color>white</color>
+		</state>
+		<state name="alife">
+			<color>blue</color>
+		</state>
+	</statelist>
+	<parameterlist>
+		<parameter name="plane">0</parameter>
+		<parameter name="open">1</parameter>
+		<parameter name="gridcolor">yellow</parameter>
+	</parameterlist>
+	<initialize>
+		<square top="5" left="5" extent="10" state="alife" />
+	</initialize>
+	<rulelist>
+		<rule name="always alife">
+			<result>1</result>
+			<if>CELL=1 AND (SUM(1) = 2 OR SUM(1) = 3)</if>
+		<rule name="born">
+			<result>1</result>
+			<if>CELL=0 AND SUM(1) = 3</if>
+		</rule>
+		<rule name="death">
+			<result>0</result>
+			<if>true</if>
+		</rule>
+	</rulelist>
+</automata>
+
+

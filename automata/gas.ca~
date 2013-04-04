@@ -1,0 +1,18 @@
+AUTOMATA gas
+-- Gasteilchenbewegung 
+
+ARRAY 40,40
+STATES
+	air : white
+	particle : red
+END
+NEIGHBORS
+	Margolus 
+END
+PARAMETERS
+	Square 15,15,10,1
+END
+RULES
+	CW IF MRAND MOD 2;
+	CCW OTHERWISE;
+END
