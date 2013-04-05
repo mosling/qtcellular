@@ -36,7 +36,7 @@
 ******************************************************************************/
 
 #include <stdlib.h>
-#include "random.h"
+#include "Random.h"
 
 /**** Static variables ****/
 static int r250_index = 0;

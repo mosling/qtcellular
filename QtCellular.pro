@@ -1,32 +1,27 @@
-#-------------------------------------------------
-#
+# -------------------------------------------------
 # Project created by QtCreator 2011-06-06T12:43:55
-#
-#-------------------------------------------------
+# -------------------------------------------------
+TARGET 		= QtCellular
+TEMPLATE 	= app
 
-QT       += core gui widgets
+QT			+= core gui widgets
 
-TARGET = QtCellular
-TEMPLATE = app
-
-DEFINES += YY_NEVER_INTERACTIVE
-DEFINES += YY_VERBOSE
-DEFINES += YY_NO_UNPUT
-
-LEXSOURCES += casimScanner.l
+DEFINES		+= YY_NEVER_INTERACTIVE
+DEFINES		+= YY_VERBOSE
+DEFINES		+= YY_NO_UNPUT
+LEXSOURCES	+= casimScanner.l
 YACCSOURCES += casimParser.y
 
-CONFIG += lex yacc
-QMAKE_LEX      = flex
-QMAKE_YACC     = bison
-QMAKE_LEXFLAGS = -i
-QMAKE_YACCFLAGS= -d -o y.tab.c
+CONFIG 			+= lex yacc
+QMAKE_LEX 		= flex
+QMAKE_YACC 		= bison
+QMAKE_LEXFLAGS	= -i
+QMAKE_YACCFLAGS	= -d
+QMAKE_MOVE		= mv
+QMAKE_DEL_FILE	= rm -f
+QMAKE_CFLAGS_WARN_ON = -Wall -pedantic -ansi
 
-QMAKE_MOVE     = mv
-QMAKE_DEL_FILE = rm -f
-QMAKE_CFLAGS_WARN_ON	= -Wall -pedantic -ansi
-
-SOURCES += main.cpp\
+SOURCES += main.cpp \
     CQueue.cpp \
     CExpression.cpp \
     AutomataFactory.cpp \
@@ -37,7 +32,6 @@ SOURCES += main.cpp\
     FieldAlgorithms.cpp \
     Ca.cpp \
     Automata.cpp \
-    StopWatch.cpp \
     CellularException.cpp \
     QtCasim.cpp \
     Random.cpp \
@@ -47,8 +41,7 @@ SOURCES += main.cpp\
     ParamDialog.cpp \
     NumericValidator.cpp
 
-HEADERS  += \
-    CQueue.h \
+HEADERS += CQueue.h \
     CExpression.h \
     AutomataFactory.h \
     GridWidget.h \
@@ -60,7 +53,6 @@ HEADERS  += \
     Ca.h \
     Automata.h \
     global.h \
-    StopWatch.h \
     CellularException.h \
     QtCasim.h \
     Random.h \
@@ -71,12 +63,10 @@ HEADERS  += \
     NumericValidator.h \
     Field.h
 
-FORMS    += \
-    qtcasim.ui \
+FORMS += qtcasim.ui \
     ParamDialogWindow.ui
 
-OTHER_FILES += \
-    ../QtCellular-build-desktop/life.ca \
+OTHER_FILES += ../QtCellular-build-desktop/life.ca \
     ../QtCellular-build-desktop/macaroni.ca \
     ../QtCellular-build-desktop/srdp.ca \
     ../QtCellular-build-desktop/traffic.ca \
@@ -89,14 +79,3 @@ OTHER_FILES += \
     automata/life.ca \
     automata/lab2.ca \
     automata/gas.ca
-
-
-
-
-
-
-
-
-
-
-

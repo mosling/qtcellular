@@ -5,7 +5,7 @@
 #include <QList>
 #include <QLineEdit>
 #include <QGridLayout>
-#include "ui_paramdialogwindow.h"
+#include "ui_ParamDialogWindow.h"
 
 class ParamDialog : public QDialog
 {

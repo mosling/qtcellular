@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "Field.h"
-#include "random.h"
+#include "Random.h"
 #include "Grid.h"
 #include "Ca.h"
 #include "CellularException.h"

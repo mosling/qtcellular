@@ -1,4 +1,4 @@
-#include "numericvalidator.h"
+#include "NumericValidator.h"
 
 NumericValidator::NumericValidator(QObject *parent)
    : QValidator(parent), min(0), max(0)
@@ -43,9 +43,9 @@ void NumericValidator::setTop(QString top)
 }
 
 /*!
-Beim Prüfen wird die Zeichenkette mit dem neuen Zeichen als Parameter
-übergeben. Wenn die Methode Invalid zurückgibt, wird das Zeichen nicht
-in den LineEditor übernommen.
+Beim Prï¿½fen wird die Zeichenkette mit dem neuen Zeichen als Parameter
+ï¿½bergeben. Wenn die Methode Invalid zurï¿½ckgibt, wird das Zeichen nicht
+in den LineEditor ï¿½bernommen.
 TODO Bisher wird nur ein positiver Bereich abgedeckt.
 */
 QValidator::State NumericValidator::validate(QString& input, int& pos) const

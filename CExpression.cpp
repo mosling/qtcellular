@@ -4,7 +4,7 @@
 #include <QDebug>
 #include "CQueue.h"
 #include "CExpression.h"
-#include "random.h"
+#include "Random.h"
 
 #define ready            0
 #define division_by_zero 1
