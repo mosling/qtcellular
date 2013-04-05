@@ -7,6 +7,7 @@ GridWidget::GridWidget(QWidget *parent)
     xCells=10;
     yCells=10;
     this->setMouseTracking(true);
+    fgColor.setNamedColor("skyblue");
 }
 
 GridWidget::~GridWidget()
@@ -18,6 +19,11 @@ void GridWidget::paintEvent(QPaintEvent *)
     bool allNew = false;
     StateListNode *sn;
     QPainter gwPainter(this);
+    QPen gridPen;
+
+    gridPen.setWidth(1);
+    gridPen.setStyle(Qt::SolidLine);
+    gridPen.setColor(fgColor);
 
     if (fieldPixmap.size() != size())
     {
@@ -32,16 +38,17 @@ void GridWidget::paintEvent(QPaintEvent *)
     yCells = mGridData->getYCells();
     bool drawGrid = this->width() > (8*xCells);
 
-    painter.setWindow(0,0,xCells,yCells);
+    painter.setWindow(0,0,10*xCells,10*yCells);
     if (allNew)
         mGridData->SetFirstCell(Field::ALL, 0);
     else
         mGridData->SetFirstCell(Field::PARTIAL, 0);
+
     while (!mGridData->LastCell ())
     {
         sn = mStates->getState(mGridData->GetCellState());
-        int x = mGridData->getXIndex();
-        int y = mGridData->getYIndex();
+        int x = 10*mGridData->getXIndex();
+        int y = 10*mGridData->getYIndex();
 
         if (sn != NULL)
         {
@@ -54,24 +61,23 @@ void GridWidget::paintEvent(QPaintEvent *)
             case 3: /* die Zustandsnr. anzeigen */
                 break;
             default: /* farbiges Rechteck */
-                painter.fillRect(x,y,1,1,sn->color);
+                painter.fillRect(x,y,10,10,sn->color);
                 break;
             }
         }
         if (drawGrid)
         {
-            painter.setPen(fgColor);
-            painter.setPen(Qt::SolidLine);
-            painter.drawRect(x,y,1,1);
+            painter.setPen(gridPen);
+            painter.drawRect(x,y,10,10);
         }
+
         mGridData->NextCell();
     }
 
     if (allNew)
     {
         // draw the frame
-        painter.setPen(fgColor);
-        painter.setPen(Qt::SolidLine);
+        painter.setPen(gridPen);
         painter.setWindow(0,0,width(),height());
         painter.drawRect(0,0, width()-1, height()-1);
         painter.setWindow(0,0,xCells,yCells);

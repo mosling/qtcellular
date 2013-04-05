@@ -50,6 +50,7 @@ void StateList::addState(int what,QString name, int num,
     case 4:
         node->how = 0;
         node->color.setNamedColor(s);
+        qDebug() << "color is: " << node->color.name();
         break;
     case 1: /* loading picture */
         node->how = 1;

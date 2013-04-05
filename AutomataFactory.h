@@ -1,4 +1,4 @@
-#ifndef AUTOMATAFACTORY_H
+﻿#ifndef AUTOMATAFACTORY_H
 #define AUTOMATAFACTORY_H
 
 #include <QWidget>
@@ -18,7 +18,7 @@ enum etAutomataType
 /*!
   Diese Klasse stellt die Schnittstelle zwischen der Beschreibungssprache und
   den konkreten Objekten her. Hier werden die richtigen Objekte erzeugt und
-  mit Werten gef�llt:
+  mit Werten gefüllt:
  */
 class AutomataFactory
 {

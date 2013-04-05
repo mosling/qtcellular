@@ -1,22 +1,24 @@
 # -------------------------------------------------
 # Project created by QtCreator 2011-06-06T12:43:55
 # -------------------------------------------------
-TARGET 		= QtCellular
-TEMPLATE 	= app
+TARGET			= QtCellular
+TEMPLATE		= app
 
-QT			+= core gui widgets
-
-DEFINES		+= YY_NEVER_INTERACTIVE
-DEFINES		+= YY_VERBOSE
-DEFINES		+= YY_NO_UNPUT
-LEXSOURCES	+= casimScanner.l
-YACCSOURCES += casimParser.y
-
+QT				+= core gui widgets
 CONFIG 			+= lex yacc
+
+DEFINES			+= YY_NEVER_INTERACTIVE
+DEFINES			+= YY_VERBOSE
+DEFINES			+= YY_NO_UNPUT
+
+LEXSOURCES		+= casimScanner.l
+YACCSOURCES		+= casimParser.y
+
 QMAKE_LEX 		= flex
 QMAKE_YACC 		= bison
 QMAKE_LEXFLAGS	= -i
-QMAKE_YACCFLAGS	= -d
+win32:QMAKE_YACCFLAGS	= -d -o y.tab.c
+unix:QMAKE_YACCFLAGS	= -d
 QMAKE_MOVE		= mv
 QMAKE_DEL_FILE	= rm -f
 QMAKE_CFLAGS_WARN_ON = -Wall -pedantic -ansi
@@ -52,7 +54,6 @@ HEADERS += CQueue.h \
     FieldAlgorithms.h \
     Ca.h \
     Automata.h \
-    global.h \
     CellularException.h \
     QtCasim.h \
     Random.h \

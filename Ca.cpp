@@ -103,7 +103,7 @@ qint32 Ca::changeCell()
 //! Feld bestimmt. Der Automat selbst kennt den Aufbau nicht.
 void Ca::nextSolid ()
 {
-	field->SetFirstCell(Field::ALL, 0);
+    field->SetFirstCell(Field::ALL, 0);
 	while (!field->LastCell())
 	{
 		changeCell();

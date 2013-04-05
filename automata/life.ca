@@ -3,6 +3,7 @@
 -- Der bekannteste Zelluläre Automat
 -- Geschichtliches: Conway soll "The game of life" mit Tellern auf den
 -- Fliesen der Eingangshalle gespielt haben.
+ARRAY 100, 100
 
 STATES
 	dead : white
@@ -14,17 +15,15 @@ NEIGHBORS
 END
 
 PARAMETERS
-	--Cyclic
 	Plane 0
-	Open
-	Square 5,5,10,1
+	Cyclic
+	Square 20,20,60,1
+	Square 30,30,40,0
 	GridColor Yellow
-	-- Load "life.save"
-	-- Init_Rnd
 END
 
 RULES
-	1 IF CELL=1 AND (SUM(1) = 2 OR SUM(1) = 3);
-	1 IF CELL=0 AND SUM(1) = 3;
+	alife IF CELL=alife AND (SUM(alife) = 2 OR SUM(alife) = 3);
+	alife IF CELL=dead  AND SUM(alife) = 3;
 	0 OTHERWISE;
 END

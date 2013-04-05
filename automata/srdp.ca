@@ -3,30 +3,31 @@ AUTOMATA Srdp
 -- Im zweidimensionalen und mit einem Schwellwert
 
 ARRAY 70,70
+
 STATES
-	scissors : NavyBlue
-	rock : CornflowerBlue
-	dynamite : SlateBlue
-	paper : RoyalBlue
+	scissors: navy
+	rock	: cornflowerblue
+	dynamite: slateblue
+	paper	: royalblue
 END
+
 NEIGHBORS
 	Moore 1
 END
+
 PARAMETERS
 	Open
 	Cyclic
 	Sub
 	treshold = 2
-	Init_rnd
+	--Init_rnd
 	--load 'srdp.save'
 END 
+
 RULES
 	0 IF (SUM(0)>=treshold) AND (STATE(0)=3);
 	1 IF (SUM(1)>=treshold) AND (STATE(0)=0);
 	2 IF (SUM(2)>=treshold) AND (STATE(0)=1);
 	3 IF (SUM(3)>=treshold) AND (STATE(0)=2);
 END
-OBSERVERS
-	STATES
-	Fields
-END
+

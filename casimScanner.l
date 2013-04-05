@@ -8,6 +8,18 @@ char linebuf[1024];
 
 %}
 
+bom     \xEF\xBB\xBF
+
+u2a     [\xC2-\xDF][\x80-\xBF]
+u2b     \xE0[\xA0-\xBF][\x80-\xBF]
+u3a     [\xE1-\xEC\xEE\xEF][\x80-\xBF]{2}
+u3b     \xED[\x80-\x9F][\x80-\xBF]
+u4a     \xF0[\x90-\xBF][\x80-\xBF]{2}
+u4b     [\xF1-\xF3][\x80-\xBF]{3}
+u4c     \xF4[\x80-\x8F][\x80-\xBF]{2}
+
+utf_8   {u2a}|{u2b}|{u3a}|{u3b}|{u4a}|{u4b}|{u4c}
+
 file       \".+\"
 id         [a-zA-Z][a-zA-Z0-9_]*
 number     [0-9]+
@@ -19,9 +31,9 @@ ws         [ \t]+
 %a 3500
 
 %%
-\n.*       { strcpy (linebuf, yytext+1);
-             lineno++; yyless(1);
-           }
+\n.*       { strcpy (linebuf, yytext+1); lineno++; yyless(1); }
+{bom}      { qDebug() << "UTF-8 BOM detected"; putchar('B');  }
+{utf_8}    { qDebug() << "UTF-8 Sign detected"; putchar('u');  }
 END        { return END; }
 AUTOMATA   { return AUTOMATA; }
 "1DIM-CA"  { return AUTOMATA1D; }
@@ -112,7 +124,7 @@ Fehler ausgeben und beenden.
 */
 void casimParsererror (QString s)
 {
-        qDebug() << lineno << ": " << s << " at "
+        qDebug() << "Error at line " << lineno << ": " << s << " at "
                  << QString(yytext) << " in this line: '" << linebuf << "'";
 	exit (2) ;
 }

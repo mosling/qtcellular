@@ -57,7 +57,7 @@ void AutomataFactory::setAutomataName (QString aName, etAutomataType aType)
 
 void AutomataFactory::setSteps (int s1,int s2)
 {
-	qDebug() << "deprecated with the visualization frontend";
+    qDebug() << "STEPS are deprecated with the visualization frontend";
 }
 
 
@@ -145,7 +145,7 @@ void AutomataFactory::addStateOrVariable (QString aName, CQueue *aQueue)
 //! \param aQueue Die Datenstruktur, welche die Funktionszeichen enthält
 void AutomataFactory::setFunction(etRulePart aFuncType, CQueue *aQueue)
 {
-	QString vStr[5] = {"","Function","Condition","Moveto-Func1","Moveto-Func2"};
+    QString vStr[5] = {"Result","Function","Condition","Moveto-Func1","Moveto-Func2"};
 	CExpression *exp = new CExpression;
 
 	qDebug() << "set function type " << vStr[(int)aFuncType];

@@ -58,7 +58,7 @@ automata:
 	;
 
 ca:
-                ca_name gridmap states neighbourhood parameters rules observers
+		ca_name gridmap states neighbourhood parameters rules observers
 		{ factory->lastSettings (); }
 	|	ca_name planarmap states parameters rules observers
 		{ factory->lastSettings (); }
@@ -98,7 +98,6 @@ planarmap:
 	;
 
 steps:
-		{ factory->setSteps (5,5); }
 	|	STEP NUMBER ',' NUMBER { factory->setSteps ($2,$4); }
 	;
 
@@ -252,9 +251,9 @@ expression:
 	|	expression '/' expression    { qFunc->enqueue (3,13); }
 	|	RND  '(' expression ')'      { qFunc->enqueue (3,14); }
 	|	STATE '(' expression ')'     { qFunc->enqueue (3,15); }
-	|  CELL                         { qFunc->enqueue (2,0); qFunc->enqueue (3,15); }
-	|  CCW                          { qFunc->enqueue (2,3); qFunc->enqueue (3,15); }
-	|  CW                           { qFunc->enqueue (2,1); qFunc->enqueue (3,15); }
+	|	CELL                         { qFunc->enqueue (2,0); qFunc->enqueue (3,15); }
+	|	CCW                          { qFunc->enqueue (2,3); qFunc->enqueue (3,15); }
+	|	CW                           { qFunc->enqueue (2,1); qFunc->enqueue (3,15); }
 	|	OPP                          { qFunc->enqueue (2,2); qFunc->enqueue (3,15); }
 	|	'[' expression ']'           { qFunc->enqueue (3,15); }
 	|	SUM '(' expression ')'       { qFunc->enqueue (3,16); }

@@ -26,6 +26,7 @@ private:
 	 volatile bool bStopped;
 
 private slots:
+     void on_actionQuit_triggered();
 	 void on_btnNext_clicked();
 	 void on_actionClear_triggered();
 	 void on_actionRandom_triggered();

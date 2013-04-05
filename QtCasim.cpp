@@ -49,7 +49,8 @@ void QtCasim::on_actionClear_triggered()
 
 void QtCasim::on_actionRandom_triggered()
 {
-	 FieldAlgorithms::Randomize(automata->getField(), automata->getStateList());
+     FieldAlgorithms::Randomize(automata->getField(),
+                                automata->getStateList());
 	 if (fieldWidget!=NULL) fieldWidget->update();
 }
 
@@ -66,14 +67,23 @@ void QtCasim::on_actionLoadField_triggered()
 	if (fieldWidget!=NULL) fieldWidget->update();
 }
 
+void QtCasim::on_actionQuit_triggered()
+{
+    this->close();
+}
+
 void QtCasim::on_btnNext_clicked()
 {
 	QTime myTimer;
 
 	myTimer.start();
 	automata->nextConfiguration();
+    int milli = myTimer.elapsed();
 
-	qDebug() << "time to compute one configuration " << myTimer.toString("s.zzz") << "s";
+    QTime diff(0,0);
+    diff = diff.addMSecs(milli);
+
+    qDebug() << "time to compute one configuration " << diff.toString("s.zzz") << "s";
 	qDebug() << "stable configuration " << automata->isStable();
 	if (fieldWidget!=NULL) fieldWidget->update();
 }
@@ -98,8 +108,10 @@ void QtCasim::on_btnStart_clicked()
 		}
 	}
 	int milli=myTimer.elapsed();
+    QTime diff(0,0);
+    diff = diff.addMSecs(milli);
 	qDebug() << "time to compute " << cnt
-				<< " configuration " << myTimer.toString("m:s.zzz") << "min"
+                << " configuration " << diff.toString("m:s.zzz") << "min"
 				<< " ( " << cnt/(milli/1000.0) << "configuration/second )";
 }
 

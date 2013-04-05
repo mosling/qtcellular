@@ -1,4 +1,4 @@
-#ifndef RULE_H
+﻿#ifndef RULE_H
 #define RULE_H
 
 #include <QList>
@@ -13,7 +13,7 @@ enum etRulePart
 
 //! Diese Klasse verwaltet die Regeln eines einzelnen Modells
 //! und einige weitere Parameter. Die Variablen dieser Klasse
-//! werden durch den Parser gef�llt.
+//! werden durch den Parser gefüllt.
 class Rule
 {
 public:
