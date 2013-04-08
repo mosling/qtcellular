@@ -24,8 +24,8 @@ QMAKE_DEL_FILE	= rm -f
 QMAKE_CFLAGS_WARN_ON = -Wall -pedantic -ansi
 
 SOURCES += main.cpp \
-    CQueue.cpp \
-    CExpression.cpp \
+	Queue.cpp \
+	Expression.cpp \
     AutomataFactory.cpp \
     GridWidget.cpp \
     Grid.cpp \
@@ -41,10 +41,10 @@ SOURCES += main.cpp \
     Turing.cpp \
     TuringRule.cpp \
     ParamDialog.cpp \
-    NumericValidator.cpp
+	NumericValidator.cpp
 
-HEADERS += CQueue.h \
-    CExpression.h \
+HEADERS += Queue.h \
+	Expression.h \
     AutomataFactory.h \
     GridWidget.h \
     Field.h \
@@ -62,7 +62,7 @@ HEADERS += CQueue.h \
     TuringRule.h \
     ParamDialog.h \
     NumericValidator.h \
-    Field.h
+	Field.h
 
 FORMS += qtcasim.ui \
     ParamDialogWindow.ui

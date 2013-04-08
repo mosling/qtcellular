@@ -9,10 +9,19 @@ QT       += widgets testlib
 TARGET = cqueue_test
 CONFIG   += console
 CONFIG   -= app_bundle
-INCLUDEPATH += ../src
+INCLUDEPATH += ..
 
 TEMPLATE = app
 
 
-SOURCES += cqueue_test.cpp
+SOURCES += \
+	..\Queue.cpp
+
+SOURCES += \
+    Queue_Test.cpp \
+    main_test.cpp
+
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
+
+HEADERS += \
+    Queue_Test.h

@@ -1,6 +1,6 @@
 ﻿#include <QtDebug>
 #include "AutomataFactory.h"
-#include "CExpression.h"
+#include "Expression.h"
 #include "GridWidget.h"
 #include "FieldAlgorithms.h"
 
@@ -117,7 +117,7 @@ int AutomataFactory::setVariable(QString aName, int aValue)
  \param aName der gefundene Name
  \param aQueue Zeiger auf die Queue in die eingefügt werden soll
 */
-void AutomataFactory::addStateOrVariable (QString aName, CQueue *aQueue)
+void AutomataFactory::addStateOrVariable (QString aName, Queue *aQueue)
 {
 	int i = automataStates->getIndex(aName);
 
@@ -143,10 +143,10 @@ void AutomataFactory::addStateOrVariable (QString aName, CQueue *aQueue)
 //!
 //! \param aFuncType Art der Funktion, Berechnung oder Bedingung
 //! \param aQueue Die Datenstruktur, welche die Funktionszeichen enthält
-void AutomataFactory::setFunction(etRulePart aFuncType, CQueue *aQueue)
+void AutomataFactory::setFunction(etRulePart aFuncType, Queue *aQueue)
 {
     QString vStr[5] = {"Result","Function","Condition","Moveto-Func1","Moveto-Func2"};
-	CExpression *exp = new CExpression;
+	Expression *exp = new Expression;
 
 	qDebug() << "set function type " << vStr[(int)aFuncType];
 	// aQueue->show();

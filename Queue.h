@@ -1,10 +1,10 @@
-#ifndef CQUEUE_H
+ï»¿#ifndef CQUEUE_H
 #define CQUEUE_H
 
 #include <QString>
 
 /*!
-Struktur für die Aufnahme der Daten eines Knotens
+Struktur fÃ¼r die Aufnahme der Daten eines Knotens
 der Queue.
 */
 typedef struct cell {
@@ -14,19 +14,19 @@ typedef struct cell {
 } cell;
 
 /*!
-Bereitstellen eines FIFO-Speichers mit speziellen Knoten zur
-Aufnahme der Werte,Operatoren und Variablen während des Parsingprozesses
-eines Ausdrucks.
-*/
-class CQueue
+ * Bereitstellen eines FIFO-Speichers mit speziellen Knoten zur
+ * Aufnahme der Werte,Operatoren und Variablen wÃ¤hrend des Parsingprozesses
+ * eines Ausdrucks.
+ */
+class Queue
 {
 private:
   cell *head, *tail;
 
 public:
-	CQueue();
-	~CQueue();
-	void append (CQueue *aQueue);
+    Queue();
+    ~Queue();
+    void append (Queue *aQueue);
 	void enqueue (int t, int v);
 	void enqueue (cell *aCell);
 	void dequeue ();

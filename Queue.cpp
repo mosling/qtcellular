@@ -1,15 +1,15 @@
 ﻿#include <string>
 #include <QtGlobal>
 #include <QtDebug>
-#include "CQueue.h"
+#include "Queue.h"
 
-CQueue::CQueue()
+Queue::Queue()
 {
 	head = NULL;
 	tail = NULL;
 }
 
-CQueue::~CQueue()
+Queue::~Queue()
 {
 	clear();
 }
@@ -20,7 +20,7 @@ der Liste.
 \param t Typ des Knotens
 \param v ein Wert, (Konstante, Operatorindex oder Variablenindex)
 */
-void CQueue::enqueue(int t, int v)
+void Queue::enqueue(int t, int v)
 {
 	cell *temp;
 
@@ -31,7 +31,7 @@ void CQueue::enqueue(int t, int v)
 	enqueue (temp);
 }
 
-void CQueue::enqueue(cell *aCell)
+void Queue::enqueue(cell *aCell)
 {
 	if (tail != NULL) tail->next = aCell;
 	else head = aCell;
@@ -39,7 +39,7 @@ void CQueue::enqueue(cell *aCell)
 	tail = aCell;
 }
 
-void CQueue::append(CQueue *aQueue)
+void Queue::append(Queue *aQueue)
 {
 	cell *temp;
 
@@ -55,7 +55,7 @@ void CQueue::append(CQueue *aQueue)
 Löschen des ersten Eintrages der Queue. Es wird kein
 Wert geliefert.
 */
-void CQueue::dequeue()
+void Queue::dequeue()
 {
 	cell *save;
 
@@ -75,7 +75,7 @@ void CQueue::dequeue()
 Es werden die Werte des Kopfelemnetes abgefragt.
 \return Zeiger auf den Kopfknoten
 */
-cell *CQueue::getHead()
+cell *Queue::getHead()
 {
 	return head;
 }
@@ -83,7 +83,7 @@ cell *CQueue::getHead()
 /*!
 Umdrehen der Einträge.
 */
-void CQueue::reverse ()
+void Queue::reverse ()
 {
 	cell *temp,*memory,*swap;
 
@@ -105,7 +105,7 @@ void CQueue::reverse ()
 /*!
 \return true, falls kein Elemnt enthalten ist.
 */
-bool CQueue::isempty()
+bool Queue::isempty()
 {
 	return (head == NULL);
 }
@@ -113,7 +113,7 @@ bool CQueue::isempty()
 /*!
 Löschen aller Elemente der Queue.
 */
-void CQueue::clear()
+void Queue::clear()
 {
 	cell *temp, *otemp;
 
@@ -127,7 +127,7 @@ void CQueue::clear()
 	tail=NULL;
 }
 
-void CQueue::show()
+void Queue::show()
 {
 	static char op[19][7] = {
 		"AND", "OR", "XOR",

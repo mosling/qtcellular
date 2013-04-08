@@ -3,7 +3,7 @@
 
 #include <QString>
 #include "Field.h"
-#include "CQueue.h"
+#include "Queue.h"
 
 typedef struct treeatom {
 	struct treeatom *left;
@@ -12,18 +12,18 @@ typedef struct treeatom {
 	int value;
 } treeatom;
 
-class CExpression
+class Expression
 {
 public:
-	CExpression();
-	~CExpression();
+    Expression();
+    ~Expression();
 
 	int compute (Field *aField, QList<int> &vVars);
 	void show ();
 	QString getError ();
 	char *equation_error_text();
 	void clear ();
-	void importQueue (CQueue *expr_queue);
+    void importQueue (Queue *expr_queue);
 
 	unsigned char number (char *t, int *d);
 	int value (char *t);
@@ -39,7 +39,7 @@ private:
 	int  computeTreeInternal (treeatom *tree);
 	void showTreeInternal (treeatom *tree, QString &resStr);
 	void clearTreeInternal(treeatom *tree);
-	void importQueueInternal(CQueue *expr_queue, treeatom **tree);
+    void importQueueInternal(Queue *expr_queue, treeatom **tree);
 
 };
 

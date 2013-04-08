@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QMap>
-#include "CQueue.h"
+#include "Queue.h"
 #include "StateList.h"
 #include "RuleSet.h"
 #include "Grid.h"
@@ -40,7 +40,7 @@ public:
 	void setBorderType(int bt, int ptb);
 	void setParameter(QString aName, int aValue);
 	int  setVariable(QString aName, int aValue);
-	void setFunction(etRulePart aFuncType, CQueue *aQueue);
+    void setFunction(etRulePart aFuncType, Queue *aQueue);
 	void setFieldSquare (int x,int y,int w,int c);
 	void loadField (QString aFileName, bool isAscii);
 	void randomField ();
@@ -50,7 +50,7 @@ public:
 	void addTuringFour ();
 	void addTuringEight ();
 	void add_turing_rule (int st, int si, int nst, int nsi, int d);
-	void addStateOrVariable (QString vName, CQueue *aQueue);
+    void addStateOrVariable (QString vName, Queue *aQueue);
 	int  get_statenumber (char *vname);
 	QWidget *getFieldWidget() { return automataFieldWidget; }
 	Automata* getAutomata() { return automata; }

@@ -1,36 +1,48 @@
 #include <QString>
 #include <QtTest>
+#include <QDebug>
+#include "Queue_Test.h"
 
-class CQueue_Test : public QObject
-{
-    Q_OBJECT
-    
-public:
-    CQueue_Test();
-    
-private Q_SLOTS:
-    void initTestCase();
-    void cleanupTestCase();
-    void testCase1();
-};
 
-CQueue_Test::CQueue_Test()
+Queue_Test::Queue_Test()
 {
 }
 
-void CQueue_Test::initTestCase()
+void Queue_Test::initTestCase()
 {
+    q = new Queue();
 }
 
-void CQueue_Test::cleanupTestCase()
+void Queue_Test::cleanupTestCase()
 {
+    delete q;
 }
 
-void CQueue_Test::testCase1()
+void Queue_Test::testEnqueue()
 {
-    QVERIFY2(true, "Failure");
+  q->clear();
+  QVERIFY2(q->isempty()==true, "not empty after clear");
+  q->enqueue(1,1);
+  QVERIFY2(q->isempty()==false, "empty after enqueue a element");
+  q->enqueue(2,2);
+  q->enqueue(3,3);
+  q->enqueue(4,4);
 }
 
-QTEST_APPLESS_MAIN(CQueue_Test)
+void Queue_Test::testHead()
+{
+    cell *c;
+    c = q->getHead(); QVERIFY(c->type==1 && c->value==1);
+    c = q->getHead(); QVERIFY(c->type==1 && c->value==1);
+    q->dequeue();
+    c = q->getHead(); QVERIFY(c->type==2 && c->value==2);
+    q->reverse();
+    c = q->getHead(); QVERIFY(c->type==4 && c->value==4);
+    q->dequeue();
+    c = q->getHead(); QVERIFY(c->type==3 && c->value==3);
+}
 
-#include "cqueue_test.moc"
+void Queue_Test::testDequeue()
+{
+
+}

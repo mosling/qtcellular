@@ -3,12 +3,12 @@
 
 #include <stdio.h>
 #include <QDebug>
-#include "CQueue.h"
+#include "Queue.h"
 #include "AutomataFactory.h"
-#include "CExpression.h"
+#include "Expression.h"
 
 AutomataFactory *factory;
-CQueue *qFunc;
+Queue *qFunc;
 
 extern int casimScannerlex();
 extern void casimParsererror(QString errStr);
@@ -313,7 +313,7 @@ int parseAutomataFile (QString name, AutomataFactory *f)
 	extern FILE *casimScannerin;
 
 	factory = f;
-	qFunc = new CQueue();
+	qFunc = new Queue();
 	casimScannerin = fopen(name.toLatin1(),"r");
 	if (casimScannerin != NULL)
 	{

@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <QDebug>
-#include "CQueue.h"
-#include "CExpression.h"
+#include "Queue.h"
+#include "Expression.h"
 #include "Random.h"
 
 #define ready            0
@@ -52,21 +52,21 @@ static long values[max_op] = {
 	2
 };
 
-CExpression::CExpression() : tree(NULL)
+Expression::Expression() : tree(NULL)
 {
 }
 
-CExpression::~CExpression()
+Expression::~Expression()
 {
 
 }
 
-QString CExpression::getError()
+QString Expression::getError()
 {
 	return exp_error;
 }
 
-void CExpression::showTreeInternal (treeatom *tree, QString &resStr)
+void Expression::showTreeInternal (treeatom *tree, QString &resStr)
 {
 	bool showBrace = false;
 
@@ -87,14 +87,14 @@ void CExpression::showTreeInternal (treeatom *tree, QString &resStr)
 	if (showBrace) resStr += ") ";
 }
 
-void CExpression::show()
+void Expression::show()
 {
 	QString str;
 	showTreeInternal (tree, str);
 	qDebug() << str;
 }
 
-void CExpression::clearTreeInternal(treeatom *tree)
+void Expression::clearTreeInternal(treeatom *tree)
 {
 	if (tree->left != NULL)
 		clearTreeInternal (tree->left);
@@ -103,14 +103,14 @@ void CExpression::clearTreeInternal(treeatom *tree)
 	free (tree);
 }
 
-void CExpression::clear()
+void Expression::clear()
 {
 	clearTreeInternal(tree);
 	tree = NULL;
 }
 
 
-void CExpression::importQueueInternal(CQueue *expr_queue, treeatom **tree)
+void Expression::importQueueInternal(Queue *expr_queue, treeatom **tree)
 {
 	cell *temp;
 
@@ -130,13 +130,13 @@ void CExpression::importQueueInternal(CQueue *expr_queue, treeatom **tree)
 	}
 }
 
-void CExpression::importQueue(CQueue *expr_queue)
+void Expression::importQueue (Queue *expr_queue)
 {
 	if (NULL != tree) clear();
 	importQueueInternal(expr_queue, &tree);
 }
 
-int CExpression::power (int a, int p)
+int Expression::power (int a, int p)
 {
 	if (p==0) 
 		return 1;
@@ -145,7 +145,7 @@ int CExpression::power (int a, int p)
 	return a;
 }
 
-int CExpression::computeTreeInternal(treeatom *tree)
+int Expression::computeTreeInternal(treeatom *tree)
 {
 	treeatom *left,*right;
 	int vResult;
@@ -216,7 +216,7 @@ int CExpression::computeTreeInternal(treeatom *tree)
 	return 0;
 }
 
-int CExpression::compute(Field *aField, QList<int> &vVars)
+int Expression::compute(Field *aField, QList<int> &vVars)
 {
 	currentField = aField;
 	varList = vVars;

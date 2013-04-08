@@ -2,7 +2,7 @@
 #define RULE_H
 
 #include <QList>
-#include "CExpression.h"
+#include "Expression.h"
 #include "Field.h"
 
 enum etRulePart
@@ -20,11 +20,11 @@ public:
 	Rule(void);
 	~Rule(void);
 
-	void addExpression(CExpression *aExp, etRulePart aPart);
+    void addExpression(Expression *aExp, etRulePart aPart);
 	bool compute(Field *aField, QList<int> &vVars, int &aResult);
 
 private:
-	CExpression *action, *cond, *m1, *m2;
+    Expression *action, *cond, *m1, *m2;
 
 };
 

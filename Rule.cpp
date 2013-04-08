@@ -1,4 +1,4 @@
-#include "Rule.h"
+ï»¿#include "Rule.h"
 
 Rule::Rule(void) :
     action(NULL), cond(NULL), m1(NULL), m2(NULL)
@@ -7,7 +7,7 @@ Rule::Rule(void) :
 
 /*!
 Die Regel-Funktionen werden aus dem AutomataFactory in
-die Regel übernommen, wenn die Regel entfernt wird,
+die Regel Ã¼bernommen, wenn die Regel entfernt wird,
 werden auch die Funktionen entfernt.
 */
 Rule::~Rule(void)
@@ -18,7 +18,7 @@ Rule::~Rule(void)
     delete m2;
 }
 
-void Rule::addExpression(CExpression *aExp, etRulePart aPart)
+void Rule::addExpression(Expression *aExp, etRulePart aPart)
 {
     switch (aPart)
     {
@@ -42,7 +42,7 @@ bool Rule::compute(Field *aField, QList<int> &vVars, int &aResult)
 	int c = 1;
 	bool vRes = false;
 
-	// bisherige Summe ungültig machen
+	// bisherige Summe ungÃ¼ltig machen
 	aField->getNeighborSum(false);
 	if (NULL != cond)
 	{
