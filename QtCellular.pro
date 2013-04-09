@@ -6,6 +6,8 @@ TEMPLATE		= app
 
 QT				+= core gui widgets
 CONFIG 			+= lex yacc
+TRANSLATIONS	+= qtcellular_en.ts qtcellular_de.ts
+CODECFORTR		= UTF-8
 
 DEFINES			+= YY_NEVER_INTERACTIVE
 DEFINES			+= YY_VERBOSE
@@ -79,4 +81,9 @@ OTHER_FILES += ../QtCellular-build-desktop/life.ca \
     automata/macaroni.ca \
     automata/life.ca \
     automata/lab2.ca \
-    automata/gas.ca
+    automata/gas.ca \
+    qtcellular_en.ts \
+    qtcellular_de.ts
+
+RESOURCES += \
+    qtcellular.qrc

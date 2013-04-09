@@ -474,15 +474,12 @@ void Grid::get_old_field ()
 
 void Grid::close_field ()
 {
-    qDebug() << "delete aktfield " << aktfield;
-    delete [] aktfield;
-    qDebug() << "delete newfield " << newfield;
-    delete [] newfield;
-    qDebug() << "delete maskfiedl " << maskfield;
-    delete [] maskfield;
-    aktfield = NULL;
-    newfield = NULL;
-    maskfield = NULL;
+    qDebug() << tr("delete aktfield") << " " << aktfield;
+    delete [] aktfield; aktfield = NULL;
+    qDebug() << tr("delete newfield") << " " << newfield;
+    delete [] newfield; newfield = NULL;
+    qDebug() << tr("delete maskfiedl") << " " << maskfield;
+    delete [] maskfield; maskfield = NULL;
 }
 
 /*!

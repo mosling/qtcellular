@@ -1,14 +1,15 @@
 ﻿#ifndef FIELD_H
 #define FIELD_H
 
+#include <QObject>
 #include <QVector>
 #include <QString>
 //#include "global.h"
 
-//! Diese Klasse legt das Interface für den Zugriff auf ein Feld
-//! fest.
-class Field
+//! This class is a interface class for the field access.
+class Field : public QObject
 {
+
 public:
 
 	enum iterationType {ALL = 0, PARTIAL, MARGOLUS};
