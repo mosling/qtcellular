@@ -10,6 +10,8 @@ Klasse für die Speicherung eines zweidimensionalen Feldes.
 */
 class Grid : public Field
 {
+    Q_OBJECT
+
 public:
     Grid();
     virtual ~Grid();

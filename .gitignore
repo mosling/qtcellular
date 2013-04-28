@@ -1,0 +1,7 @@
+# Qt-User project file
+
+*.pro.user
+
+# Linguist/lrelease files
+
+*.qm
