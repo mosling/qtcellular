@@ -77,9 +77,9 @@ void Grid::InitField (int x,int y)
     newfield = new qint32[Field_size];
     maskfield = new qint32[Field_size];
 
-    qDebug() << "Adresse aktfield " << aktfield;
-    qDebug() << "Adresse newfield " << newfield;
-    qDebug() << "Adresse maskfiedl " << maskfield;
+    qDebug() << QObject::tr("Adresse aktfield ") << aktfield;
+    qDebug() << QObject::tr("Adresse newfield ") << newfield;
+    qDebug() << QObject::tr("Adresse maskfiedl ") << maskfield;
     clearField();
     fieldValid = true;
 }
