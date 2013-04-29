@@ -7,6 +7,8 @@
 //! Diese Klasse implementiert einen zellulären Automaten.
 class Ca : public Automata
 {
+    Q_OBJECT
+
 public:
 	Ca();
 	virtual ~Ca();

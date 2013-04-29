@@ -5,9 +5,7 @@
 #include <QMap>
 #include "Field.h"
 
-/*!
-Klasse für die Speicherung eines zweidimensionalen Feldes.
-*/
+//!
 class Grid : public Field
 {
     Q_OBJECT
@@ -20,22 +18,23 @@ public:
     virtual QString GetFieldInfo () const { return "GridField";}
 
     // Iterator-Funktionen
-    virtual void SetFirstCell (iterationType aType, qint32);
-    virtual void NextCell ();
-    virtual bool LastCell () const;
+    virtual void    SetFirstCell (iterationType aType, qint32);
+    virtual void    NextCell ();
+    virtual bool    LastCell () const;
+    virtual qint32  GetCellState () const;
+    virtual void    SetCellState (qint32 st);
+    virtual void    SetNewState (qint32 st);
+    virtual void    MarkCellMask (qint32);
+    virtual qint32  GetCellMask () const;
+    virtual QVector<qint32>& getNeighborSum(bool useLast) const;
+    virtual qint32  getNeighborState(qint32 aIndex);
 
     // Funktionen mit der aktiven Zelle
+    // \todo no grid methods
     virtual void     SetActiveCell (qint32 x, qint32 y);
     virtual void     GetActiveCell(qint32 &x, qint32 &y);
     virtual void     MoveActiveCell(qint32 xd, qint32 yd);
     virtual void     MoveActiveCell(qint32 nIdx);
-    virtual qint32 GetCellState () const;
-    virtual void     SetCellState (qint32 st);
-    virtual void     SetNewState (qint32 st);
-    virtual void     MarkCellMask (qint32);
-    virtual qint32 GetCellMask () const;
-    virtual QVector<qint32>& getNeighborSum(bool useLast) const;
-    virtual qint32 getNeighborState(qint32 aIndex);
 
     // Funktionen f"ur das gesamte Feld
     virtual void InitField (qint32 x, qint32 y);
@@ -55,11 +54,11 @@ public:
     virtual void setAddingCell(bool aWithCell);
 
     // direkte Kommunikation mit einer Zelle
-    virtual qint32 GetCellState (qint32 x, qint32 y) const;
-    virtual void SetCellState (qint32 x, qint32 y, qint32 st);
-    virtual void SetNewState (qint32 x, qint32 y, qint32 st);
-    virtual void MarkCellMask (qint32 x, qint32 y, qint32 mt);
-    virtual qint32 GetCellMask (qint32 x, qint32 y) const;
+    virtual qint32  GetCellState (qint32 x, qint32 y) const;
+    virtual void    SetCellState (qint32 x, qint32 y, qint32 st);
+    virtual void    SetNewState (qint32 x, qint32 y, qint32 st);
+    virtual void    MarkCellMask (qint32 x, qint32 y, qint32 mt);
+    virtual qint32  GetCellMask (qint32 x, qint32 y) const;
 
     // Grid-spezifische Funktionen
     virtual void setBorder(qint32 bf, qint32 bs);

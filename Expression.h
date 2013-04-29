@@ -5,6 +5,8 @@
 #include "Field.h"
 #include "Queue.h"
 
+//! Simple Tree Node wich contains pointer to the left and right child
+//! nodes. Which kind
 typedef struct treeatom {
 	struct treeatom *left;
 	struct treeatom *right;
@@ -12,6 +14,7 @@ typedef struct treeatom {
 	int value;
 } treeatom;
 
+//! This class saves a numerical expression as expression tree.
 class Expression
 {
 public:

@@ -69,21 +69,15 @@ HEADERS += Queue.h \
 FORMS += qtcasim.ui \
     ParamDialogWindow.ui
 
-OTHER_FILES += ../QtCellular-build-desktop/life.ca \
-    ../QtCellular-build-desktop/macaroni.ca \
-    ../QtCellular-build-desktop/srdp.ca \
-    ../QtCellular-build-desktop/traffic.ca \
-    ../QtCellular-build-desktop/lab2.ca \
-    ../QtCellular-build-desktop/life.xml \
-    ../QtCellular-build-desktop/gas.ca \
-    automata/traffic.ca \
+OTHER_FILES += automata/traffic.ca \
     automata/srdp.ca \
     automata/macaroni.ca \
     automata/life.ca \
     automata/lab2.ca \
     automata/gas.ca \
     qtcellular_en.ts \
-    qtcellular_de.ts
+    qtcellular_de.ts \
+    Doxyfile
 
 RESOURCES += \
     qtcellular.qrc

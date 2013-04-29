@@ -5,6 +5,9 @@
 #include <QColor>
 #include <QMap>
 
+//! This internal class contains all information
+//! about a possible state of a cell. The cell
+//! state itself is a number only.
 class StateListNode
 {
 
@@ -18,6 +21,9 @@ public:
     char character;
 };
 
+//! The list of all possible states for the cells. This class
+//! has also the mapping from name to number, so the user can
+//! use the name of the defined cell to describe the rules.
 class StateList
 {
 public:

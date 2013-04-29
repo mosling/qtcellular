@@ -170,7 +170,7 @@ char c, QString s,int l, QString s2)
 }
 
 void AutomataFactory::add_gridcolor (char *name)
-{
+{    
 }
 
 void AutomataFactory::create_states (int what,int n,char *name,int c,int l)

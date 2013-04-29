@@ -1,23 +1,23 @@
-﻿/*!
-Abstrakte Klasse für Modelle, diese stellen im wesentlichen eine
-Funktion bereit, für das Berechnen der nächsten Konfiguration.
-Darüber hinaus werden Funktionen zur Überwachung von
-Veränderungen als inline-Funktionen implementiert. So rufen die
-entsprechenden Funktionen des Feldes diese Observer auf.
-*/
-
-#ifndef MODEL_H
+﻿#ifndef MODEL_H
 #define MODEL_H
+
+#include <QObject>
 #include <QPoint>
 #include <QString>
 #include <QHash>
 #include "RuleSet.h"
 #include "StateList.h"
 #include "Field.h"
-//#include "global.h"
 
-class Automata
+//! Abstrakte Klasse für Modelle, diese stellen im wesentlichen eine
+//! Funktion bereit, für das Berechnen der nächsten Konfiguration.
+//! Darüber hinaus werden Funktionen zur Überwachung von
+//! Veränderungen als inline-Funktionen implementiert. So rufen die
+//! entsprechenden Funktionen des Feldes diese Observer auf.
+class Automata : public QObject
 {
+    Q_OBJECT
+
 public:
 	Automata();
 	virtual ~Automata();

@@ -7,6 +7,7 @@
 //#include "global.h"
 
 //! This class is a interface class for the field access.
+//! Here we define all nessesary methods for a arbitrary field.
 class Field : public QObject
 {
 
