@@ -3,6 +3,7 @@
 # -------------------------------------------------
 TARGET			= QtCellular
 TEMPLATE		= app
+TRANSLATIONS	= qtcellular_en.ts qtcellular_de.ts
 
 QT				+= core gui widgets
 CONFIG 			+= lex yacc

@@ -1,4 +1,5 @@
 ﻿#include <QDebug>
+#include <QTranslator>
 #include <stdlib.h>
 #include <math.h>
 #include "Field.h"
@@ -37,7 +38,7 @@ void Ca::nextConfiguration ()
 			nextMargolus(static_cast<qint32>(getCounter()%2));
 			break;
 		default:
-			throw (new CellularException(__FILE__,__LINE__,"unknown new cell method"));
+            throw (new CellularException(__FILE__,__LINE__,QObject::tr("unknown new cell method")));
 			break;
 		}
 		incCounter();
