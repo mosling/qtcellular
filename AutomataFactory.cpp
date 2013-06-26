@@ -28,6 +28,8 @@ void AutomataFactory::init()
 
 void AutomataFactory::setAutomataName (QString aName, etAutomataType aType)
 {
+    Q_UNUSED(aName)
+
 	switch (aType)
 	{
 	case TURINGMODEL:
@@ -57,6 +59,9 @@ void AutomataFactory::setAutomataName (QString aName, etAutomataType aType)
 
 void AutomataFactory::setSteps (int s1,int s2)
 {
+    Q_UNUSED (s1)
+    Q_UNUSED (s2)
+
     qDebug() << "STEPS are deprecated with the visualization frontend";
 }
 
@@ -170,7 +175,8 @@ char c, QString s,int l, QString s2)
 }
 
 void AutomataFactory::add_gridcolor (char *name)
-{    
+{
+    Q_UNUSED(name);
 }
 
 void AutomataFactory::create_states (int what,int n,char *name,int c,int l)

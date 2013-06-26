@@ -20,7 +20,7 @@ private:
     qint32 changeCell();
 
 	void nextSolid ();
-	void nextMargolus (qint32 offset);
+    void nextMargolus (qint32 offset);
 
 	void nextChecker ();
 	void nextPlanar ();
