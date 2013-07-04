@@ -18,6 +18,8 @@ int main(int argc, char *argv[])
 
 	QtCasim casim;
 	casim.show();
+    casim.loadAutomata("macaroni.ca");
+
 
     return app.exec();
 }

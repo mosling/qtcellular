@@ -123,20 +123,25 @@ void QtCasim::on_btnStopp_clicked()
 
 extern int parseAutomataFile(QString, AutomataFactory *);
 
+void QtCasim::loadAutomata(const QString &name)
+{
+    delete automata;
+    factory.init();
+
+    if (parseAutomataFile(name, &factory))
+    {
+        this->setVisualizationWidget(factory.getFieldWidget());
+        this->setAutomata(factory.getAutomata());
+    }
+}
+
 void QtCasim::on_actionLoad_triggered()
 {
 	QString srcpath = QFileDialog::getOpenFileName(this, "Automat auswaehlen");
 
 	qDebug() << "loading automata " << srcpath;
 
-	delete automata;
-	factory.init();
-
-	if (parseAutomataFile(srcpath, &factory))
-	{
-		this->setVisualizationWidget(factory.getFieldWidget());
-		this->setAutomata(factory.getAutomata());
-	}
+    loadAutomata(srcpath);
 }
 
 

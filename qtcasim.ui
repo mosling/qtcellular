@@ -38,7 +38,7 @@
      <x>0</x>
      <y>0</y>
      <width>618</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -118,12 +118,18 @@
        <property name="text">
         <string>Start</string>
        </property>
+       <property name="shortcut">
+        <string>Ctrl+S</string>
+       </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btnStopp">
        <property name="text">
         <string>Stopp</string>
+       </property>
+       <property name="shortcut">
+        <string>Alt+S</string>
        </property>
       </widget>
      </item>
@@ -150,6 +156,9 @@
   <action name="actionLoad">
    <property name="text">
     <string>Load</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+F</string>
    </property>
   </action>
   <action name="actionTest">
@@ -180,6 +189,9 @@
   <action name="actionRandom">
    <property name="text">
     <string>Random</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+R</string>
    </property>
   </action>
   <action name="actionMouse_State">

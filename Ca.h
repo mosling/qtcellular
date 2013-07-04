@@ -8,6 +8,7 @@
 class Ca : public Automata
 {
     Q_OBJECT
+    Q_CLASSINFO ("author", "skoehler")
 
 public:
 	Ca();
