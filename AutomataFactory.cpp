@@ -22,6 +22,9 @@ AutomataFactory::~AutomataFactory()
 
 void AutomataFactory::init()
 {
+    delete automataStates;
+    delete mRules;
+
 	automataStates = new StateList();
 	mRules = new RuleSet();
 }
