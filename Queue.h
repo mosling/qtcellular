@@ -2,6 +2,7 @@
 #define CQUEUE_H
 
 #include <QString>
+#include <QList>
 
 /*!
 Struktur für die Aufnahme der Daten eines Knotens
@@ -35,6 +36,8 @@ public:
 	bool isempty ();
 	void clear ();
 	void show();
+    QList<QString> tokenizeExpression(QString expression);
+    void parseExpression(QString expression);
 };
 
 #endif

@@ -5,7 +5,7 @@ TARGET			= QtCellular
 TEMPLATE		= app
 TRANSLATIONS	= qtcellular_en.ts qtcellular_de.ts
 
-QT				+= core gui widgets
+QT				+= core gui widgets xml
 CONFIG 			+= lex yacc
 TRANSLATIONS	+= qtcellular_en.ts qtcellular_de.ts
 CODECFORTR		= UTF-8
@@ -44,7 +44,8 @@ SOURCES += main.cpp \
     Turing.cpp \
     TuringRule.cpp \
     ParamDialog.cpp \
-	NumericValidator.cpp
+	NumericValidator.cpp \
+    CasimXmlParser.cpp
 
 HEADERS += Queue.h \
 	Expression.h \
@@ -65,7 +66,8 @@ HEADERS += Queue.h \
     TuringRule.h \
     ParamDialog.h \
     NumericValidator.h \
-	Field.h
+	Field.h \
+    CasimXmlParser.h
 
 FORMS += qtcasim.ui \
     ParamDialogWindow.ui
@@ -78,7 +80,8 @@ OTHER_FILES += automata/traffic.ca \
     automata/gas.ca \
     qtcellular_en.ts \
     qtcellular_de.ts \
-    Doxyfile
+    Doxyfile \
+    automata/life.xml
 
 RESOURCES += \
     qtcellular.qrc

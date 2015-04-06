@@ -157,7 +157,8 @@ void AutomataFactory::setFunction(etRulePart aFuncType, Queue *aQueue)
 	Expression *exp = new Expression;
 
 	qDebug() << "set function type " << vStr[(int)aFuncType];
-	// aQueue->show();
+    aQueue->show();
+
 	aQueue->reverse();
 	exp->importQueue(aQueue);
 	exp->show();

@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/translations">
-        <file>qtcellular_de.qm</file>
-        <file>qtcellular_en.qm</file>
+        <file>qtcellular_de.ts</file>
+        <file>qtcellular_en.ts</file>
     </qresource>
 </RCC>

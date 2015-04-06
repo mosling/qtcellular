@@ -16,10 +16,12 @@ int main(int argc, char *argv[])
         app.installTranslator(&translator);
     }
 
-	QtCasim casim;
-	casim.show();
-    casim.loadAutomata("macaroni.ca");
+//    Queue q;
+//    q.parseExpression("CELL=alife AND (SUM(alife) = 2 OR SUM(alife) = 3)");
 
-
+    QtCasim casim;
+    casim.show();
     return app.exec();
+
+    return 0;
 }

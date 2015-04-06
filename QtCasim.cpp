@@ -2,6 +2,7 @@
 #include "QtCasim.h"
 #include <QTime>
 #include "FieldAlgorithms.h"
+#include "CasimXmlParser.h"
 #include <QFileDialog>
 #include "ParamDialog.h"
 
@@ -127,8 +128,9 @@ void QtCasim::loadAutomata(const QString &name)
 {
     delete automata;
     factory.init();
+    CasimXmlParser parser;
 
-    if (parseAutomataFile(name, &factory))
+    if (parser.parseAutomataFile(name, &factory))
     {
         this->setVisualizationWidget(factory.getFieldWidget());
         this->setAutomata(factory.getAutomata());
