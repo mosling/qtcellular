@@ -42,30 +42,59 @@ void QtCasim::setAutomata(Automata *aAutomata)
 	if (fieldWidget!=NULL) fieldWidget->update();
 }
 
+bool QtCasim::checkAutomata()
+{
+    bool retVal = automata!=NULL;
+    if (!retVal)
+    {
+        qDebug() << "first load an automata";
+    }
+    return retVal;
+}
+
 void QtCasim::on_actionClear_triggered()
 {
-	 automata->getField()->clearField();
-	 if (fieldWidget!=NULL) fieldWidget->update();
+    if (checkAutomata())
+    {
+        automata->getField()->clearField();
+        if (fieldWidget!=NULL) fieldWidget->update();
+    }
 }
 
 void QtCasim::on_actionRandom_triggered()
 {
+    if (checkAutomata())
+    {
      FieldAlgorithms::Randomize(automata->getField(),
                                 automata->getStateList());
 	 if (fieldWidget!=NULL) fieldWidget->update();
+    }
 }
 
 void QtCasim::on_actionSaveField_triggered()
 {
+    if (checkAutomata())
+    {
 	 QString srcpath = QFileDialog::getSaveFileName(this, "Datei auswaehlen");
 	 automata->getField()->saveField(srcpath);
+    }
 }
 
 void QtCasim::on_actionLoadField_triggered()
 {
-	QString srcpath = QFileDialog::getOpenFileName(this, "Datei auswaehlen");
-	automata->getField()->loadField(srcpath);
-	if (fieldWidget!=NULL) fieldWidget->update();
+    if (checkAutomata())
+    {
+        QString srcpath = QFileDialog::getOpenFileName(this, "Datei auswaehlen");
+        if (srcpath.endsWith(".txt"))
+        {
+            automata->getField()->loadAsciiField(srcpath);
+        }
+        else
+        {
+            automata->getField()->loadField(srcpath);
+        }
+        if (fieldWidget!=NULL) fieldWidget->update();
+    }
 }
 
 void QtCasim::on_actionQuit_triggered()
@@ -128,12 +157,18 @@ void QtCasim::loadAutomata(const QString &name)
 {
     delete automata;
     factory.init();
-    CasimXmlParser parser;
+    //CasimXmlParser parser;
+    //if (parser.parseAutomataFile(name, &factory))
 
-    if (parser.parseAutomataFile(name, &factory))
+    if (parseAutomataFile(name, &factory))
     {
+        factory.lastSettings();
         this->setVisualizationWidget(factory.getFieldWidget());
         this->setAutomata(factory.getAutomata());
+    }
+    else
+    {
+        qDebug() << "Error parsing automata";
     }
 }
 

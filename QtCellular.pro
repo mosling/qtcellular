@@ -3,11 +3,11 @@
 # -------------------------------------------------
 TARGET			= QtCellular
 TEMPLATE		= app
-TRANSLATIONS	= qtcellular_en.ts qtcellular_de.ts
+TRANSLATIONS            = qtcellular_en.ts qtcellular_de.ts
 
-QT				+= core gui widgets xml
+QT			+= core gui widgets xml
 CONFIG 			+= lex yacc
-TRANSLATIONS	+= qtcellular_en.ts qtcellular_de.ts
+TRANSLATIONS            += qtcellular_en.ts qtcellular_de.ts
 CODECFORTR		= UTF-8
 
 DEFINES			+= YY_NEVER_INTERACTIVE
@@ -17,18 +17,18 @@ DEFINES			+= YY_NO_UNPUT
 LEXSOURCES		+= casimScanner.l
 YACCSOURCES		+= casimParser.y
 
-QMAKE_LEX 		= flex
-QMAKE_YACC 		= bison
+QMAKE_LEX 		= C:/development/win_flex_bison-latest/win_flex.exe
+QMAKE_YACC 		= C:/development/win_flex_bison-latest/win_bison.exe
 QMAKE_LEXFLAGS	= -i
 win32:QMAKE_YACCFLAGS	= -d -o y.tab.c
 unix:QMAKE_YACCFLAGS	= -d
 QMAKE_MOVE		= mv
-QMAKE_DEL_FILE	= rm -f
-QMAKE_CFLAGS_WARN_ON = -Wall -pedantic -ansi
+QMAKE_DEL_FILE          = rm -f
+QMAKE_CFLAGS_WARN_ON    = -Wall -pedantic -ansi
 
 SOURCES += main.cpp \
-	Queue.cpp \
-	Expression.cpp \
+    Queue.cpp \
+    Expression.cpp \
     AutomataFactory.cpp \
     GridWidget.cpp \
     Grid.cpp \
@@ -44,11 +44,10 @@ SOURCES += main.cpp \
     Turing.cpp \
     TuringRule.cpp \
     ParamDialog.cpp \
-	NumericValidator.cpp \
-    CasimXmlParser.cpp
+    NumericValidator.cpp
 
 HEADERS += Queue.h \
-	Expression.h \
+    Expression.h \
     AutomataFactory.h \
     GridWidget.h \
     Field.h \
@@ -66,8 +65,9 @@ HEADERS += Queue.h \
     TuringRule.h \
     ParamDialog.h \
     NumericValidator.h \
-	Field.h \
-    CasimXmlParser.h
+    Field.h \
+    casimParser.y \
+    casimScanner.l
 
 FORMS += qtcasim.ui \
     ParamDialogWindow.ui
@@ -85,3 +85,6 @@ OTHER_FILES += automata/traffic.ca \
 
 RESOURCES += \
     qtcellular.qrc
+
+DISTFILES += \
+    automata/lab2.xml

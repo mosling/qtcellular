@@ -26,6 +26,8 @@ private:
     AutomataFactory factory;
     volatile bool bStopped;
 
+    bool checkAutomata();
+
 private slots:
     void on_actionQuit_triggered();
     void on_btnNext_clicked();

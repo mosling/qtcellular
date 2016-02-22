@@ -70,13 +70,13 @@ tm:
 	;
 
 ca_name: 
-		AUTOMATA STRING { factory->setAutomataName($2,CAMODEL);}
-	|	AUTOMATA1D STRING {factory->setAutomataName($2,CA1DMODEL); }
+        AUTOMATA STRING { factory->setAutomataName($2); factory->setAutomataType(CAMODEL);}
+    |	AUTOMATA1D STRING {factory->setAutomataName($2); factory->setAutomataType(CA1DMODEL); }
 	;
 
 tm_name:
 		STRING 
-		{ factory->setAutomataName($1,TURINGMODEL); }
+        { factory->setAutomataName($1); factory->setAutomataType(TURINGMODEL); }
 	;
 
 agent:
@@ -86,7 +86,7 @@ agent:
 
 agent_name:
 		STRING
-		{ factory->setAutomataName ($1, AGENTMODEL); }
+        { factory->setAutomataName ($1); factory->setAutomataType(AGENTMODEL); }
 	;
 	
 gridmap: 
@@ -110,22 +110,13 @@ state_description:
 	;
 
 normal_states: 
-		STRING ':' COLOR NUMBER likelyhood
-		{ factory->addState (0,$1,$4,'-',"",$5,""); }
-	|	STRING ':' STRING likelyhood
-		{ factory->addState (4,$1,0,'-',$3,$4,""); }
-	|	STRING ':' PICTURE  FILENAME likelyhood
-		{ factory->addState (1,$1,0,'-',$4,$5,""); }
-	|	STRING ':' CHAR SYMBOL STRING STRING likelyhood
-		{ factory->addState (2,$1,0,$4,$5,$7,$6); }
-	|	STRING ':' CHAR SYMBOL likelyhood ';'
-		{ factory->addState (5,$1,0,$4,"",$5,""); }
-	|	STRING ':' NUM likelyhood
-		{ factory->addState (3,$1,0,'-',"",$4,""); }
-	|	CREATE NUMBER STRING ':' COLOR NUMBER likelyhood 
-		{ factory->create_states (0,$2,$3,$6,$7); }
-	|	CREATE NUMBER STRING ':' NUM likelyhood
-		{ factory->create_states (1,$2,$3,0,$6); }
+        STRING ':' STRING likelyhood                        { factory->addState (4,$1,'-',$3,$4,""); }
+    |	STRING ':' PICTURE  FILENAME likelyhood             { factory->addState (1,$1,'-',$4,$5,""); }
+    |	STRING ':' CHAR SYMBOL STRING STRING likelyhood		{ factory->addState (2,$1,$4,$5,$7,$6); }
+    |	STRING ':' CHAR SYMBOL likelyhood ';'               { factory->addState (5,$1,$4,"",$5,""); }
+    |	STRING ':' NUM likelyhood                           { factory->addState (3,$1,'-',"",$4,""); }
+    |	CREATE NUMBER STRING ':' COLOR NUMBER likelyhood 	{ factory->create_states (0,$2,$3,$6,$7); }
+    |	CREATE NUMBER STRING ':' NUM likelyhood     		{ factory->create_states (1,$2,$3,0,$6); }
 	;
 
 likelyhood:      { $$=0; }

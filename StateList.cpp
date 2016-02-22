@@ -17,18 +17,16 @@ StateList::~StateList()
 
  \param what
  \param name
- \param num
- \param c
- \param s
- \param l
- \param s2
+ \param c character used to display
+ \param s colorname or picturename for what == 1
+ \param l likelyhood
+ \param s2 character background color
 */
-void StateList::addState(int what,QString name, int num,
-                         char c, QString s,int l, QString s2)
+void StateList::addState(int what, QString name, char c, QString s,int l, QString s2)
 {
 
-    qDebug() << QString("Add State  %1,%2,%3,%4,%5,%6,%7")
-                .arg(name).arg(what).arg(num).arg(c).arg(s).arg(l).arg(s2);
+    qDebug() << QString("Add State  %1,%2,%4,%5,%6,%7")
+                .arg(name).arg(what).arg(c).arg(s).arg(l).arg(s2);
 
     StateListNode *node = NULL;
     int ind = getIndex(name);
@@ -67,6 +65,7 @@ void StateList::addState(int what,QString name, int num,
         node->how = 3;
         break;
     }
+
     node->likelyhood = l;
 }
 

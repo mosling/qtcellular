@@ -36,9 +36,8 @@ void GridWidget::paintEvent(QPaintEvent *)
     // Jetzt die Felder zeichnen
     xCells = mGridData->getXCells();
     yCells = mGridData->getYCells();
-    bool drawGrid = this->width() > (8*xCells);
 
-    painter.setWindow(0,0,10*xCells,10*yCells);
+    painter.setWindow(0,0,xCells,yCells);
     if (allNew)
         mGridData->SetFirstCell(Field::ALL, 0);
     else
@@ -47,40 +46,45 @@ void GridWidget::paintEvent(QPaintEvent *)
     while (!mGridData->LastCell ())
     {
         sn = mStates->getState(mGridData->GetCellState());
-        int x = 10*mGridData->getXIndex();
-        int y = 10*mGridData->getYIndex();
+        int x = mGridData->getXIndex();
+        int y = mGridData->getYIndex();
 
-        if (sn != NULL)
+        switch (sn->how)
         {
-            switch (sn->how)
-            {
-            case 1: /* kleines Bildchen */
-                break;
-            case 2: /* als Zeichen anzeigen */
-                break;
-            case 3: /* die Zustandsnr. anzeigen */
-                break;
-            default: /* farbiges Rechteck */
-                painter.fillRect(x,y,10,10,sn->color);
-                break;
-            }
-        }
-        if (drawGrid)
-        {
-            painter.setPen(gridPen);
-            painter.drawRect(x,y,10,10);
+        case 1: /* kleines Bildchen */
+            break;
+        case 2: /* als Zeichen anzeigen */
+            break;
+        case 3: /* die Zustandsnr. anzeigen */
+            break;
+        default: /* farbiges Rechteck */
+            painter.fillRect(x,y,1,1,sn->color);
+            break;
         }
 
         mGridData->NextCell();
     }
 
-    if (allNew)
+    bool drawGrid = (this->width() > (5*xCells)) && (this->height() > (5*yCells));
+    if (drawGrid)
     {
-        // draw the frame
-        painter.setPen(gridPen);
+        qreal sx = 1.0 * width() / xCells;
+        qreal sy = 1.0 * height() / yCells;
         painter.setWindow(0,0,width(),height());
-        painter.drawRect(0,0, width()-1, height()-1);
-        painter.setWindow(0,0,xCells,yCells);
+        painter.setPen(gridPen);
+        QLineF l1(0.0, 0.0, 0.0, 1.0 * height());
+        for (int c=0; c <= xCells; ++c)
+        {
+            painter.drawLine(l1);
+            l1.translate(sx, 0.0);
+        }
+        QLineF l2(0.0, 0.0, 1.0*width(), 0.0);
+        for (int r=0; r <= yCells; ++r)
+        {
+            painter.drawLine(l2);
+            l2.translate(0.0, sy);
+        }
+
     }
 
     // zum Schluss das Werk anzeigen

@@ -25,10 +25,12 @@ class AutomataFactory
 public:
 	AutomataFactory ();
 	~AutomataFactory();
-	void setAutomataName (QString aName, etAutomataType aType);
+    void setAutomataType (etAutomataType aType);
+    void setAutomataName (QString aName);
 	void setSteps (int,int);
 	void setArray (int,int);
-	void addState(int what, QString name, int num, char c, QString s,int l, QString s2);
+    void addState(int what, QString name, char c, QString s, int l, QString s2);
+    void addColorState(QString name, QString colorName, int l);
 	void add_gridcolor (char *name);
 	void create_states (int what,int n,char *name,int c,int l);
 	void addNeumannNeighborhood(int n);

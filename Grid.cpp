@@ -540,6 +540,11 @@ void Grid::loadAsciiField(QString aFileName)
                         qDebug() << "Punkt liegt außerhalb des Feldes";
                     }
                 }
+                else
+                {
+                    qDebug() << "error converting line '" << line << "' to three numbers.";
+                }
+
             }
             else
             {

@@ -5,11 +5,10 @@ Rule::Rule(void) :
 {
 }
 
-/*!
-Die Regel-Funktionen werden aus dem AutomataFactory in
-die Regel übernommen, wenn die Regel entfernt wird,
-werden auch die Funktionen entfernt.
-*/
+//!
+//! Die Regel-Funktionen werden aus dem AutomataFactory in
+//! die Regel übernommen, wenn die Regel entfernt wird,
+//! werden auch die Funktionen entfernt.
 Rule::~Rule(void)
 {
     delete action;

@@ -29,10 +29,13 @@ void AutomataFactory::init()
 	mRules = new RuleSet();
 }
 
-void AutomataFactory::setAutomataName (QString aName, etAutomataType aType)
+void AutomataFactory::setAutomataName (QString aName)
 {
     Q_UNUSED(aName)
+}
 
+void AutomataFactory::setAutomataType (etAutomataType aType)
+{
 	switch (aType)
 	{
 	case TURINGMODEL:
@@ -172,10 +175,14 @@ void AutomataFactory::setFunction(etRulePart aFuncType, Queue *aQueue)
 	aQueue->clear();
 }
 
-void AutomataFactory::addState(int what,QString name, int num,
-char c, QString s,int l, QString s2)
+void AutomataFactory::addState(int what, QString name, char c, QString s,int l, QString s2)
 {
-	automataStates->addState(what,name,num,c,s,l,s2);
+    automataStates->addState(what,name,c,s,l,s2);
+}
+
+void AutomataFactory::addColorState(QString name, QString colorName, int l)
+{
+    automataStates->addState(0, name, '-', colorName, l, "");
 }
 
 void AutomataFactory::add_gridcolor (char *name)
@@ -194,10 +201,10 @@ void AutomataFactory::create_states (int what,int n,char *name,int c,int l)
 		switch (what)
 		{
 		case 0:
-			addState (0,nname,c+i,'-',"",l,"");
+            addState (0,nname,'-',"",l,"");
 			break;
 		case 1:
-			addState (3,nname,0,'-',"",l,"");
+            addState (3,nname,'-',"",l,"");
 			break;
 		}
 	}
@@ -395,9 +402,8 @@ void AutomataFactory::add_turing_rule (int st, int si, int nst, int nsi, int d)
 	qDebug() << "add turing rule";
 	if (turing != NULL)
 	{
-
+        turing->addRule (st, si, nst, nsi, d);
 	}
-	turing->addRule (st, si, nst, nsi, d);
 }
 
 int AutomataFactory::get_statenumber (char *vname)

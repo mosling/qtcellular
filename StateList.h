@@ -29,7 +29,7 @@ class StateList
 public:
     StateList();
     ~StateList();
-    void addState(int what, QString name, int num, char c, QString s,int l, QString s2);
+    void addState(int what, QString name, char c, QString s, int l, QString s2);
     int getIndex(QString name);
     int size() const { return stateList.size(); }
     StateListNode *getState(int i);
