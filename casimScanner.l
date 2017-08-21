@@ -1,5 +1,6 @@
 %{
 #include "casimParser_yacc.h"
+#include "unistd.h"
 #include <QDebug>
 #include <QString>
 

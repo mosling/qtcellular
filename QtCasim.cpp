@@ -2,7 +2,6 @@
 #include "QtCasim.h"
 #include <QTime>
 #include "FieldAlgorithms.h"
-#include "CasimXmlParser.h"
 #include <QFileDialog>
 #include "ParamDialog.h"
 

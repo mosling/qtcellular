@@ -104,7 +104,7 @@ qint32 Ca::changeCell()
 //! Feld bestimmt. Der Automat selbst kennt den Aufbau nicht.
 void Ca::nextSolid ()
 {
-    field->SetFirstCell(Field::ALL, 0);
+    field->SetFirstCell(Field::ITER_ALL, 0);
 	while (!field->LastCell())
 	{
 		changeCell();
@@ -116,7 +116,7 @@ void Ca::nextSolid ()
 //! Der offset-Wert kann 0 oder 1 sein.
 void Ca::nextMargolus (qint32 offset)
 {
-	field->SetFirstCell(Field::MARGOLUS, offset);
+    field->SetFirstCell(Field::ITER_MARGOLUS, offset);
 	mRules->setVariable("MRAND", my_random(100));
 	while (!field->LastCell())
 	{

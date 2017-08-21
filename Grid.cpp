@@ -32,7 +32,7 @@ Grid::Grid(): Field(),
     fieldValid(true),
     addCell(false),
     currentIndex(0),
-    whichCells(Field::ALL),
+    whichCells(Field::ITER_ALL),
     nhIndex(0)
 {
 }
@@ -181,13 +181,13 @@ void Grid::SetFirstCell (iterationType aType, qint32 n)
     currentCell.y = 0;
 
     whichCells = aType;
-    if (whichCells == Field::PARTIAL)
+    if (whichCells == Field::ITER_PARTIAL)
     {
         while ( currentIndex < Field_size
                 && maskfield[currentIndex] != CELL_CHANGED ) ++currentIndex;
         if (currentIndex < Field_size) indexToCurrentCell();
     }
-    else if (whichCells == Field::MARGOLUS)
+    else if (whichCells == Field::ITER_MARGOLUS)
     {
         currentCell.x = n;
         currentCell.y = n;
@@ -208,14 +208,14 @@ void Grid::SetFirstCell (iterationType aType, qint32 n)
 void Grid::NextCell ()
 {
 
-    if (whichCells == Field::PARTIAL)
+    if (whichCells == Field::ITER_PARTIAL)
     {
         currentIndex++;
         while ( currentIndex < Field_size
                 && maskfield[currentIndex] != CELL_CHANGED ) ++currentIndex;
         if (currentIndex < Field_size) indexToCurrentCell();
     }
-    else if (whichCells == Field::MARGOLUS)
+    else if (whichCells == Field::ITER_MARGOLUS)
     {
         if (3 == nhIndex)
         {

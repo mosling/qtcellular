@@ -13,7 +13,7 @@ class Field : public QObject
 
 public:
 
-	enum iterationType {ALL = 0, PARTIAL, MARGOLUS};
+    enum iterationType {ITER_ALL = 0, ITER_PARTIAL, ITER_MARGOLUS};
     enum cellModification {NOTHING = 0, CELL_CHANGED};
 
 	// virtueller Destruktor

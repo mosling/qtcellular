@@ -17,8 +17,8 @@ DEFINES			+= YY_NO_UNPUT
 LEXSOURCES		+= casimScanner.l
 YACCSOURCES		+= casimParser.y
 
-QMAKE_LEX 		= C:/development/win_flex_bison-latest/win_flex.exe
-QMAKE_YACC 		= C:/development/win_flex_bison-latest/win_bison.exe
+QMAKE_LEX 		= flex
+QMAKE_YACC 		= bison
 QMAKE_LEXFLAGS	= -i
 win32:QMAKE_YACCFLAGS	= -d -o y.tab.c
 unix:QMAKE_YACCFLAGS	= -d

@@ -20,7 +20,7 @@ void FieldAlgorithms::Randomize(Field *field, StateList *states)
 	}
 
 	field->ClearMask();
-	field->SetFirstCell(Field::ALL, 0);
+    field->SetFirstCell(Field::ITER_ALL, 0);
 	while (!field->LastCell())
 	{
 		if (s==0)

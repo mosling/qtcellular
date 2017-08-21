@@ -39,9 +39,9 @@ void GridWidget::paintEvent(QPaintEvent *)
 
     painter.setWindow(0,0,xCells,yCells);
     if (allNew)
-        mGridData->SetFirstCell(Field::ALL, 0);
+        mGridData->SetFirstCell(Field::ITER_ALL, 0);
     else
-        mGridData->SetFirstCell(Field::PARTIAL, 0);
+        mGridData->SetFirstCell(Field::ITER_PARTIAL, 0);
 
     while (!mGridData->LastCell ())
     {
