@@ -3,11 +3,12 @@
 
 #include <QString>
 
-class CellularException
+class CellularException : public std::exception
 {
 public:
 	 CellularException(QString aFile, int aLine, QString aWhat);
-	 const QString explain() const throw();
+     const QString explain() const;
+
 private:
 	 QString fileName;
 	 int lineNumber;

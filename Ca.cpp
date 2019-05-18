@@ -9,13 +9,13 @@
 #include "CellularException.h"
 
 Ca::Ca() : Automata(),
-	lookup_table_exist(0),
-	lookup_table(NULL)
+    lookup_table_exist(0),
+    lookup_table(nullptr)
 {
-	mParameter["NeedPaint"] = 1;
-	mParameter["NeedUpdate"]= 1;
-	mParameter["NeedStart"] = 0;
-	mParameter["NeedDirection"] = 0;
+    mParameter["NeedPaint"] = 1;
+    mParameter["NeedUpdate"]= 1;
+    mParameter["NeedStart"] = 0;
+    mParameter["NeedDirection"] = 0;
 }
 
 Ca::~Ca()
@@ -24,45 +24,45 @@ Ca::~Ca()
 
 void Ca::nextConfiguration ()
 {
-	try
-	{
-		stableConfiguration = true;
-		field->ClearMask ();
-		mRules->setVariable("ARAND",my_random(100));
-		switch (getParameter("NEWCELLMETHOD"))
-		{
-		case 0: // alle Zellen betrachten
-			nextSolid();
-			break;
-		case 3: // margolus Feld
-			nextMargolus(static_cast<qint32>(getCounter()%2));
-			break;
-		default:
+    try
+    {
+        stableConfiguration = true;
+        field->ClearMask ();
+        mRules->setVariable("ARAND",int(my_random(100)));
+        switch (getParameter("NEWCELLMETHOD"))
+        {
+        case 0: // alle Zellen betrachten
+            nextSolid();
+            break;
+        case 3: // margolus Feld
+            nextMargolus(static_cast<qint32>(getCounter()%2));
+            break;
+        default:
             throw (new CellularException(__FILE__,__LINE__,QObject::tr("unknown new cell method")));
-			break;
-		}
-		incCounter();
-		field->updateField();
-	}
-	catch (CellularException &e)
-	{
-		qDebug() << e.explain();
-	}
+            break;
+        }
+        incCounter();
+        field->updateField();
+    }
+    catch (CellularException &e)
+    {
+        qDebug() << e.explain();
+    }
 
-	/*
+    /*
  switch (new_cell_method) {
   case 0: // if solid new
-	solid_cellarray ();
-	break;
+    solid_cellarray ();
+    break;
   case 1: // if checker new
-	checker_cellarray ();
-	break;
+    checker_cellarray ();
+    break;
   case 3: // if margolus new
-	margolus_cellarray ();
-	break;
+    margolus_cellarray ();
+    break;
   case 5: // cells are not grids
-	planar_cellarray ();
-	break;
+    planar_cellarray ();
+    break;
  }
  */
 }
@@ -75,28 +75,28 @@ void Ca::nextConfiguration ()
 //! Ansonsten wird der vorhandene Wert übernommen.
 qint32 Ca::changeCell()
 {
-	int res;
+    int res;
     qint32 newState;
-	bool rule_found = false;
+    bool rule_found = false;
 
-	rule_found = mRules->compute(this->field, res);
+    rule_found = mRules->compute(this->field, res);
 
-	if (rule_found)
-	{
+    if (rule_found)
+    {
         newState = static_cast<qint32>(res);
 
-		if (field->GetCellState() != newState)
-		{
+        if (field->GetCellState() != newState)
+        {
             field->MarkCellMask(Field::CELL_CHANGED);
-			stableConfiguration = false;
-		}
-	}
-	else
-	{
-		newState = field->GetCellState ();
-	}
-	field->SetNewState(newState);
-	return newState;
+            stableConfiguration = false;
+        }
+    }
+    else
+    {
+        newState = field->GetCellState ();
+    }
+    field->SetNewState(newState);
+    return newState;
 }
 
 //! Es werden alle Zellen durchlaufen und der nächste Zustand
@@ -105,11 +105,11 @@ qint32 Ca::changeCell()
 void Ca::nextSolid ()
 {
     field->SetFirstCell(Field::ITER_ALL, 0);
-	while (!field->LastCell())
-	{
-		changeCell();
-		field->NextCell();
-	}
+    while (!field->LastCell())
+    {
+        changeCell();
+        field->NextCell();
+    }
 }
 
 //! Neuberechnung der Zellen in eier Margolusumgebung
@@ -117,23 +117,23 @@ void Ca::nextSolid ()
 void Ca::nextMargolus (qint32 offset)
 {
     field->SetFirstCell(Field::ITER_MARGOLUS, offset);
-	mRules->setVariable("MRAND", my_random(100));
-	while (!field->LastCell())
-	{
-		changeCell();
-		field->NextCell();
-		if (field->getNeighborhoodIndex()==0)
-		{
-			mRules->setVariable("MRAND", my_random(100));
-		}
-	}
+    mRules->setVariable("MRAND", int(my_random(100)));
+    while (!field->LastCell())
+    {
+        changeCell();
+        field->NextCell();
+        if (field->getNeighborhoodIndex()==0)
+        {
+            mRules->setVariable("MRAND", int(my_random(100)));
+        }
+    }
 }
 
 //! Neuberechnung, wenn das Fels eine planarer Graph ist.
 //! Abgebildet durch eine Zerlergung der Ebene.
 void Ca::nextPlanar ()
 {
-	/*
+    /*
  rule_record *f;
  int res=0;
  int rule_found;
@@ -147,34 +147,34 @@ void Ca::nextPlanar ()
   rule_found = FALSE;
   while ((f != NULL) && !rule_found)
   {
-	res = compute_tree (f->ftest);
-	if (res != 0)
-	{
-	 if (f->flag == 0)
-	 {
-	  // nur normales setzen
-	  res = compute_tree(f->faction);
+    res = compute_tree (f->ftest);
+    if (res != 0)
+    {
+     if (f->flag == 0)
+     {
+      // nur normales setzen
+      res = compute_tree(f->faction);
       new_state = (qint32)(res);
 #ifdef DEBUG_MODE
-	  printf ("new_array.planar_...Set new state: %d\n", new_state);
+      printf ("new_array.planar_...Set new state: %d\n", new_state);
 #endif
-	  field->SetNewState (new_state);
-	  if (field->GetCellState() != new_state)
-	  {
-		field->fieldChanged = TRUE;
-		field->MarkCellMask (CHANGED);
-	  }
-	  rule_found = TRUE;
-	 }
-	}
-	f = f->next;
+      field->SetNewState (new_state);
+      if (field->GetCellState() != new_state)
+      {
+        field->fieldChanged = TRUE;
+        field->MarkCellMask (CHANGED);
+      }
+      rule_found = TRUE;
+     }
+    }
+    f = f->next;
   }
   // zum Schlu"s die identische Regel
   // falls keine andere Regel gefunden wurde
   if (rule_found == FALSE)
   {
-	res = field->GetCellState();
-	field->SetNewState (res);
+    res = field->GetCellState();
+    field->SetNewState (res);
   }
   field->NextCell ();
  }
@@ -183,7 +183,7 @@ void Ca::nextPlanar ()
 
 void Ca::create_lookup_table ()
 {
-	/*
+    /*
  int b,i,res, lookup_pos;
  unsigned int max_counter,counter;
  rule_record *f;
@@ -192,7 +192,7 @@ void Ca::create_lookup_table ()
 
  max_counter = 1;
  if ((max_states==1) && ((max_neighbors)<12) &&
-	(!moveable_cells) && (new_cell_method<3)) {
+    (!moveable_cells) && (new_cell_method<3)) {
   for (i=0;i<=(max_neighbors);i++) max_counter *= 2;
   printf (NEWA_001,max_counter);
   // we can create an lookup_table or recreate
@@ -207,36 +207,36 @@ void Ca::create_lookup_table ()
   if (add_cell) b=0; else b=1;
   for (counter=1;counter<=max_counter;counter++)
   {
-	memset((Anyptr)sum_neighbors, 0, MAXNEIGHBORS * sizeof(char));
-	for (i=b;i<=max_neighbors;i++) sum_neighbors[pos_neighbors[i]]++;
-	f = first_rule; okend=0;
-	while (f != NULL)
-	{
-	 res = compute_tree (f->ftest);
-	 if (res != 0) {
-	  res = compute_tree(f->faction);
+    memset((Anyptr)sum_neighbors, 0, MAXNEIGHBORS * sizeof(char));
+    for (i=b;i<=max_neighbors;i++) sum_neighbors[pos_neighbors[i]]++;
+    f = first_rule; okend=0;
+    while (f != NULL)
+    {
+     res = compute_tree (f->ftest);
+     if (res != 0) {
+      res = compute_tree(f->faction);
       new_state = (qint32)(res);
-	  f = NULL;
-	  okend = 1;
-	 } else
-	  f = f->next;
-	}
-	if (!okend) new_state=pos_neighbors[0];
-	lookup_pos = 0;
-	for (i = max_neighbors; i>=0; i--) {
-	 lookup_pos = (lookup_pos + pos_neighbors[i]);
-	 lookup_pos <<= 1;
-	}
-	lookup_pos >>=1;
-	lookup_table[lookup_pos] = new_state;
-	i = 0;
-	pos_neighbors[i]++;
-	while ((pos_neighbors[i]>max_states))
-	{
-	 pos_neighbors[i] = 0;
-	 i++;
-	 pos_neighbors[i]++;
-	}
+      f = NULL;
+      okend = 1;
+     } else
+      f = f->next;
+    }
+    if (!okend) new_state=pos_neighbors[0];
+    lookup_pos = 0;
+    for (i = max_neighbors; i>=0; i--) {
+     lookup_pos = (lookup_pos + pos_neighbors[i]);
+     lookup_pos <<= 1;
+    }
+    lookup_pos >>=1;
+    lookup_table[lookup_pos] = new_state;
+    i = 0;
+    pos_neighbors[i]++;
+    while ((pos_neighbors[i]>max_states))
+    {
+     pos_neighbors[i] = 0;
+     i++;
+     pos_neighbors[i]++;
+    }
   }
  }
  printf ("fertig\n");
@@ -247,5 +247,5 @@ void Ca::create_lookup_table ()
 //! wenn diese nicht zu groß wird.
 void Ca::finishInit ()
 {
-	create_lookup_table();
+    create_lookup_table();
 }

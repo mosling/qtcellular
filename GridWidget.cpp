@@ -108,7 +108,7 @@ void GridWidget::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
     int nx = mouseEvent->x()*xCells/this->width();
     int ny = mouseEvent->y()*yCells/this->height();
-    // qDebug() << "move mouse " << nx << ", " << ny;
+    qDebug() << "move mouse " << nx << ", " << ny;
     if (mousePressed && Field::CELL_CHANGED != mGridData->GetCellMask(nx,ny))
     {
         mGridData->SetCellState(nx,ny,getNextState(nx,ny));

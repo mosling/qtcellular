@@ -1,6 +1,7 @@
 # Qt-User project file
 
 *.pro.user
+*.pro.user.4.8-pre1
 
 # Linguist/lrelease files
 

@@ -6,7 +6,7 @@
 *  Written by:    W. L. Maier
 *
 *	METHOD...
-*		16 parallel copies of a linear shift register with
+*		16 parallel copies of a linear shift  with
 *		period 2^250 - 1.  FAR longer period than the usual
 *		linear congruent generator, and commonly faster as
 *		well.  (For details see the above paper, and the
@@ -104,8 +104,8 @@ void r250_init(int seed)
 unsigned int r250()
 {
 /*---------------------------------------------------------------------------*/
-    register int    j;
-    register unsigned int new_rand;
+    int    j;
+    unsigned int new_rand;
 /*---------------------------------------------------------------------------*/
     if (r250_index >= 147)
         j = r250_index - 147;      /* Wrap pointer around */
@@ -127,8 +127,8 @@ unsigned int r250()
 unsigned int my_random (unsigned n)
 {
 /*---------------------------------------------------------------------------*/
-    register int    j;
-    register unsigned int new_rand, limit;
+     int    j;
+     unsigned int new_rand, limit;
 /*---------------------------------------------------------------------------*/
 	limit = (65535U/n)*n;
 	do 
@@ -153,8 +153,8 @@ unsigned int my_random (unsigned n)
 double dr250()
 {
 /*---------------------------------------------------------------------------*/
-    register int    j;
-    register unsigned int new_rand;
+     int    j;
+     unsigned int new_rand;
 /*---------------------------------------------------------------------------*/
     if (r250_index >= 147)
         j = r250_index - 147;     /* Wrap pointer around */

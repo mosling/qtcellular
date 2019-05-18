@@ -2,9 +2,9 @@
 
 Automata::Automata() :
 	stableConfiguration(false),
-	field(NULL),
-	mRules(NULL),
-	states(NULL),
+    field(nullptr),
+    mRules(nullptr),
+    states(nullptr),
 	counter(0)
 {
 }
@@ -12,9 +12,9 @@ Automata::Automata() :
 //! Hier werden die zugewiesene Teile auch wieder freigegeben.
 Automata::~Automata()
 {
-	delete states; states = NULL;
-	delete field; field = NULL;
-	delete mRules; mRules = NULL;
+    delete states; states = nullptr;
+    delete field; field = nullptr;
+    delete mRules; mRules = nullptr;
 }
 
 void Automata::setRuleSet(RuleSet *aRules)

@@ -5,14 +5,14 @@
 #include "FieldAlgorithms.h"
 
 AutomataFactory::AutomataFactory() :
-automata(NULL),
-automataStates(NULL),
-mRules(NULL),
-mCurrentRule(NULL),
-automataField(NULL),
-gridField(NULL),
-automataFieldWidget(NULL),
-turing(NULL)
+    automata(nullptr),
+    automataStates(nullptr),
+    mRules(nullptr),
+    mCurrentRule(nullptr),
+    automataField(nullptr),
+    gridField(nullptr),
+    automataFieldWidget(nullptr),
+    turing(nullptr)
 {
 }
 
@@ -25,8 +25,8 @@ void AutomataFactory::init()
     delete automataStates;
     delete mRules;
 
-	automataStates = new StateList();
-	mRules = new RuleSet();
+    automataStates = new StateList();
+    mRules = new RuleSet();
 }
 
 void AutomataFactory::setAutomataName (QString aName)
@@ -36,31 +36,29 @@ void AutomataFactory::setAutomataName (QString aName)
 
 void AutomataFactory::setAutomataType (etAutomataType aType)
 {
-	switch (aType)
-	{
-	case TURINGMODEL:
-		qDebug() << "create turing model";
-		turing = new Turing();
-		automata = turing;
-		automata->setParameter("NEWCELLMETHOD", 0);
-		break;
-	case CAMODEL:
-		qDebug() << "create CA model";
-		automata = new Ca();
-		automata->setRuleSet(mRules);
-		automata->setParameter("NEWCELLMETHOD", 0);
-		break;
-	case CA1DMODEL:
-		qDebug() << "create CA1d model";
-		//model = new Ca1d();
-		break;
-	case AGENTMODEL:
-		qDebug() << "create agent model";
-		//model = SelectAgent (name);
-		break;
-	default:
-		qDebug() << "no exiting model found";
-	}
+    switch (aType)
+    {
+    case TURINGMODEL:
+        qDebug() << "create turing model";
+        turing = new Turing();
+        automata = turing;
+        automata->setParameter("NEWCELLMETHOD", 0);
+        break;
+    case CAMODEL:
+        qDebug() << "create CA model";
+        automata = new Ca();
+        automata->setRuleSet(mRules);
+        automata->setParameter("NEWCELLMETHOD", 0);
+        break;
+    case CA1DMODEL:
+        qDebug() << "create CA1d model";
+        //model = new Ca1d();
+        break;
+    case AGENTMODEL:
+        qDebug() << "create agent model";
+        //model = SelectAgent (name);
+        break;
+    }
 }
 
 void AutomataFactory::setSteps (int s1,int s2)
@@ -78,14 +76,14 @@ void AutomataFactory::setSteps (int s1,int s2)
 //! * Anlegen des FeldVisualisierungsobjektes
 void AutomataFactory::setArray (int x,int y)
 {
-	qDebug() << "create a grid array " << x << "," << y;
-	gridField = new Grid();
-	gridField->InitField(x, y);
-	GridWidget *gw = new GridWidget(NULL);
-	gw->setStateList(automataStates);
-	gw->setGridData(gridField);
-	automataField = gridField;
-	automataFieldWidget = gw;
+    qDebug() << "create a grid array " << x << "," << y;
+    gridField = new Grid();
+    gridField->InitField(x, y);
+    GridWidget *gw = new GridWidget(nullptr);
+    gw->setStateList(automataStates);
+    gw->setGridData(gridField);
+    automataField = gridField;
+    automataFieldWidget = gw;
 }
 
 /*!
@@ -93,31 +91,31 @@ Diese Methode wird nur bei einer planaren Map aufgerufen.
 */
 void AutomataFactory::addPlanarmap (char *fname)
 {
-	qDebug() << "create planar map from file " << fname;
-	//model->newField(1);
-	//field->InitField (fname);
+    qDebug() << "create planar map from file " << fname;
+    //model->newField(1);
+    //field->InitField (fname);
 }
 
 void AutomataFactory::setBorderType(int bt, int ptb)
 {
-	qDebug() << "set border type " << bt << "; " << ptb;
-	if (gridField) gridField->setBorder(bt, ptb);
+    qDebug() << "set border type " << bt << "; " << ptb;
+    if (gridField) gridField->setBorder(bt, ptb);
 }
 
 void AutomataFactory::setParameter(QString aName, int aValue)
 {
-	qDebug() << "set parameter " << aName << "=" << aValue;
-	if ("ADDCELL" == aName)
-	{
-		automataField->setAddingCell(aValue==1);
-	}
+    qDebug() << "set parameter " << aName << "=" << aValue;
+    if ("ADDCELL" == aName)
+    {
+        automataField->setAddingCell(aValue==1);
+    }
 }
 
 int AutomataFactory::setVariable(QString aName, int aValue)
 {
-	qDebug() << "set variable " << aName << "=" << aValue;
-	int vIdx = mRules->setVariable(aName, aValue);
-	return vIdx;
+    qDebug() << "set variable " << aName << "=" << aValue;
+    int vIdx = mRules->setVariable(aName, aValue);
+    return vIdx;
 }
 
 /*!
@@ -130,22 +128,22 @@ int AutomataFactory::setVariable(QString aName, int aValue)
 */
 void AutomataFactory::addStateOrVariable (QString aName, Queue *aQueue)
 {
-	int i = automataStates->getIndex(aName);
+    int i = automataStates->getIndex(aName);
 
-	if ( i != -1)
-	{
-		qDebug() << "found state " << aName;
-		aQueue->enqueue(2,i);
-	}
-	else
-	{
-		i = mRules->getVarIndex(aName);
-		if (-1 == i)
-		{
-			i = mRules->setVariable(aName, 0);
-		}
-		aQueue->enqueue (1,i);
-	}
+    if ( i != -1)
+    {
+        qDebug() << "found state " << aName;
+        aQueue->enqueue(2,i);
+    }
+    else
+    {
+        i = mRules->getVarIndex(aName);
+        if (-1 == i)
+        {
+            i = mRules->setVariable(aName, 0);
+        }
+        aQueue->enqueue (1,i);
+    }
 }
 
 
@@ -157,22 +155,22 @@ void AutomataFactory::addStateOrVariable (QString aName, Queue *aQueue)
 void AutomataFactory::setFunction(etRulePart aFuncType, Queue *aQueue)
 {
     QString vStr[5] = {"Result","Function","Condition","Moveto-Func1","Moveto-Func2"};
-	Expression *exp = new Expression;
+    Expression *exp = new Expression;
 
-	qDebug() << "set function type " << vStr[(int)aFuncType];
+    qDebug() << "set function type " << vStr[int(aFuncType)];
     aQueue->show();
 
-	aQueue->reverse();
-	exp->importQueue(aQueue);
-	exp->show();
-	if (RP_ACTION == aFuncType)
-	{
-		mCurrentRule = new Rule();
-		mRules->addRule(mCurrentRule);
-	}
-	mCurrentRule->addExpression(exp, aFuncType);
+    aQueue->reverse();
+    exp->importQueue(aQueue);
+    exp->show();
+    if (RP_ACTION == aFuncType)
+    {
+        mCurrentRule = new Rule();
+        mRules->addRule(mCurrentRule);
+    }
+    mCurrentRule->addExpression(exp, aFuncType);
 
-	aQueue->clear();
+    aQueue->clear();
 }
 
 void AutomataFactory::addState(int what, QString name, char c, QString s,int l, QString s2)
@@ -192,67 +190,67 @@ void AutomataFactory::add_gridcolor (char *name)
 
 void AutomataFactory::create_states (int what,int n,char *name,int c,int l)
 {
-	QString nname;
-	int i;
+    QString nname;
+    int i;
 
-	for (i=1; i<=n; i++)
-	{
-		nname = QString("%1_%2").arg(name).arg(i);
-		switch (what)
-		{
-		case 0:
+    for (i=1; i<=n; i++)
+    {
+        nname = QString("%1_%2").arg(name).arg(i);
+        switch (what)
+        {
+        case 0:
             addState (0,nname,'-',"",l,"");
-			break;
-		case 1:
+            break;
+        case 1:
             addState (3,nname,'-',"",l,"");
-			break;
-		}
-	}
+            break;
+        }
+    }
 }
 
 //! Hinzufügen einer von Neumann Nachbarschaft
 //!
 void AutomataFactory::addNeumannNeighborhood(int n)
 {
-	int i, j;
+    int i, j;
 
-	qDebug() << "add neumann neighbourhood";
-	for (i = -n; i <= n; i++)
-	{
-		for (j = -n; j <= n; j++)
-		{
-			if (abs(i) + abs(j) == n)
-			{
-				automataField->addNeighbor (j,i,0);
-			}
-		}
-	}
+    qDebug() << "add neumann neighbourhood";
+    for (i = -n; i <= n; i++)
+    {
+        for (j = -n; j <= n; j++)
+        {
+            if (abs(i) + abs(j) == n)
+            {
+                automataField->addNeighbor (j,i,0);
+            }
+        }
+    }
 }
 
 void AutomataFactory::addMooreNeighborhood(int n)
 {
-	int i, j;
+    int i, j;
 
-	qDebug() << "add moore neighbourhood";
-	for (i = -n; i <= n; i++) {
-		for (j = -n; j <= n; j++) {
-			if ((abs(i) == n) || (abs(j) == n)) {
-				automataField->addNeighbor (j,i,0);
-			}
-		}
-	}
+    qDebug() << "add moore neighbourhood";
+    for (i = -n; i <= n; i++) {
+        for (j = -n; j <= n; j++) {
+            if ((abs(i) == n) || (abs(j) == n)) {
+                automataField->addNeighbor (j,i,0);
+            }
+        }
+    }
 }
 
 void AutomataFactory::addTuringFour ()
 {
     QPoint mp[4]={QPoint(0,-1),QPoint(1,0),
                   QPoint(0,1),QPoint(-1,0)};
-	int i;
+    int i;
 
-	for (i=0;i<=3;i++)
-	{
+    for (i=0;i<=3;i++)
+    {
         automataField->addNeighbor (mp[i].x(), mp[i].y(), 0);
-	}
+    }
 }
 
 void AutomataFactory::addTuringEight ()
@@ -261,23 +259,23 @@ void AutomataFactory::addTuringEight ()
                   QPoint(1,0),QPoint(1,1),
                   QPoint(0,1),QPoint(-1,1),
                   QPoint(-1,0),QPoint(-1,-1) };
-	int i;
+    int i;
 
-	for (i=0;i<=7;i++)
-	{
+    for (i=0;i<=7;i++)
+    {
         automataField->addNeighbor (mp[i].x(), mp[i].y(), 0);
-	}
+    }
 }
 
 void AutomataFactory::addRadiusNeighborhood (int n)
 {
-	int i;
+    int i;
 
-	qDebug() << "add radius";
-	for (i = -n; i <= n; i++)
-	{
-		automataField->addNeighbor (i, -1, 0);
-	}
+    qDebug() << "add radius";
+    for (i = -n; i <= n; i++)
+    {
+        automataField->addNeighbor (i, -1, 0);
+    }
 }
 
 //! Die interne (0,0) befindet sich oben links, das Feld ist
@@ -285,77 +283,77 @@ void AutomataFactory::addRadiusNeighborhood (int n)
 //! wird der y-Wert negiert.
 void AutomataFactory::addPoint(int x,int y)
 {
-	qDebug() << "add neighbour point";
-	automataField->addNeighbor (x, (-1)*y, 0);
+    qDebug() << "add neighbour point";
+    automataField->addNeighbor (x, (-1)*y, 0);
 }
 
 //! Margolus ist eine 2x2 Block-Umgebung deren Startpunkt
 //! alternierend wechselt.
 void AutomataFactory::addMargolusNeighborhood ()
 {	
-	qDebug() << "add Margolus neighbourhood";
-	automataField->addNeighbor( 1,  0, 0);
-	automataField->addNeighbor( 1,  1, 0);
-	automataField->addNeighbor( 0,  1, 0);
+    qDebug() << "add Margolus neighbourhood";
+    automataField->addNeighbor( 1,  0, 0);
+    automataField->addNeighbor( 1,  1, 0);
+    automataField->addNeighbor( 0,  1, 0);
 
-	automataField->addNeighbor( 0,  1, 1);
-	automataField->addNeighbor(-1,  1, 1);
-	automataField->addNeighbor(-1,  0, 1);
+    automataField->addNeighbor( 0,  1, 1);
+    automataField->addNeighbor(-1,  1, 1);
+    automataField->addNeighbor(-1,  0, 1);
 
-	automataField->addNeighbor(-1,  0, 2);
-	automataField->addNeighbor(-1, -1, 2);
-	automataField->addNeighbor( 0, -1, 2);
+    automataField->addNeighbor(-1,  0, 2);
+    automataField->addNeighbor(-1, -1, 2);
+    automataField->addNeighbor( 0, -1, 2);
 
-	automataField->addNeighbor( 0, -1, 3);
-	automataField->addNeighbor( 1, -1, 3);
-	automataField->addNeighbor( 1,  0, 3);
+    automataField->addNeighbor( 0, -1, 3);
+    automataField->addNeighbor( 1, -1, 3);
+    automataField->addNeighbor( 1,  0, 3);
 
-	automataField->setAddingCell(true);
-	automata->setParameter("NEWCELLMETHOD", 3);
+    automataField->setAddingCell(true);
+    automata->setParameter("NEWCELLMETHOD", 3);
 }
 
 void AutomataFactory::setFieldSquare (int x,int y,int w,int c)
 {
-	int i,j;
+    int i,j;
 
-	qDebug() << "set square";
-	for (i=x;i<x+w;i++)
-	{
-		for (j=y;j<y+w;j++)
-		{
+    qDebug() << "set square";
+    for (i=x;i<x+w;i++)
+    {
+        for (j=y;j<y+w;j++)
+        {
             automataField->SetCellState(i-1,j-1,c);
-		}
-	}
+        }
+    }
 }
 
 void AutomataFactory::loadField (QString aFileName, bool isAscii)
 {
-	aFileName.replace("\"","");
-	qDebug() << "load field " << aFileName << " ascii: " << isAscii;
-	if (isAscii)
-	{
-		automataField->loadAsciiField(aFileName);
-	}
-	else
-	{
-		automataField->loadField(aFileName);
-	}
+    aFileName.replace("\"","");
+    qDebug() << "load field " << aFileName << " ascii: " << isAscii;
+    if (isAscii)
+    {
+        automataField->loadAsciiField(aFileName);
+    }
+    else
+    {
+        automataField->loadField(aFileName);
+    }
 }
 
 void AutomataFactory::randomField ()
 {	
-	qDebug() << "initialize random field";
-	if (automataField != NULL)
-	{
-		FieldAlgorithms::Randomize(automataField, automataStates);
-	}
+    qDebug() << "initialize random field";
+    if (automataField != nullptr)
+    {
+        FieldAlgorithms::Randomize(automataField, automataStates);
+    }
 }
 
 
 void AutomataFactory::set_observer (int which)
 {
-	qDebug() << "set observer " << which;
-	/*
+    qDebug() << "set observer " << which;
+    /*
 #ifdef DEBUG_MODE
  printf ("Debug:: Set Observer %d\n",which);
 #endif
@@ -399,21 +397,21 @@ void AutomataFactory::set_observer (int which)
 
 void AutomataFactory::add_turing_rule (int st, int si, int nst, int nsi, int d)
 {
-	qDebug() << "add turing rule";
-	if (turing != NULL)
-	{
+    qDebug() << "add turing rule";
+    if (turing != nullptr)
+    {
         turing->addRule (st, si, nst, nsi, d);
-	}
+    }
 }
 
 int AutomataFactory::get_statenumber (char *vname)
 {
-	//	int i;
-	//	char temp[100];
+    //	int i;
+    //	char temp[100];
 
-	qDebug() << "get_statenumber: suche Zustandsnamen " << vname;
+    qDebug() << "get_statenumber: suche Zustandsnamen " << vname;
 
-	/*
+    /*
  for (i=0; i<=max_states; i++)
  {
   if (!strcmp(state_array[i].name, vname))
@@ -425,14 +423,14 @@ int AutomataFactory::get_statenumber (char *vname)
  sprintf (temp, SEMA_011, vname);
  cal_error (temp);
  */
-	return (-1);
+    return (-1);
 }
 
 void AutomataFactory::lastSettings ()
 {
-	qDebug() << "finish parsing";
-	automata->finishInit();
-	automataField->finishInit();
-	automata->setField(automataField);
-	automata->setStateList(automataStates);
+    qDebug() << "finish parsing";
+    automata->finishInit();
+    automataField->finishInit();
+    automata->setField(automataField);
+    automata->setStateList(automataStates);
 }

@@ -96,9 +96,9 @@ void Expression::show()
 
 void Expression::clearTreeInternal(treeatom *tree)
 {
-	if (tree->left != NULL)
+    if (tree->left != nullptr)
 		clearTreeInternal (tree->left);
-	if (tree->right != NULL)
+    if (tree->right != nullptr)
 		clearTreeInternal (tree->right);
 	free (tree);
 }
@@ -106,7 +106,7 @@ void Expression::clearTreeInternal(treeatom *tree)
 void Expression::clear()
 {
 	clearTreeInternal(tree);
-	tree = NULL;
+    tree = nullptr;
 }
 
 

@@ -21,9 +21,9 @@ Grid::Grid(): Field(),
     stepx(0),
     stepy(0),
     border_state(0),
-    aktfield(NULL),
-    newfield(NULL),
-    maskfield(NULL),
+    aktfield(nullptr),
+    newfield(nullptr),
+    maskfield(nullptr),
     Field_maxy(0),
     Field_size(0),
     grid(0),
@@ -42,9 +42,9 @@ Erzeugten Felder wieder freigeben.
 */
 Grid::~Grid()
 {
-    delete [] aktfield; aktfield = NULL;
-    delete [] newfield; newfield = NULL;
-    delete [] maskfield; maskfield = NULL;
+    delete [] aktfield; aktfield = nullptr;
+    delete [] newfield; newfield = nullptr;
+    delete [] maskfield; maskfield = nullptr;
 }
 
 /*!
@@ -53,7 +53,7 @@ Allokieren der notwendigen Speicher.
 void Grid::InitField (int x,int y)
 {
     fieldValid = false;
-    if (NULL != aktfield)
+    if (nullptr != aktfield)
     {
         if ( x != max_xcellspl1 || y != max_ycellspl1)
         {
